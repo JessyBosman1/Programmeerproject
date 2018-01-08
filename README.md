@@ -6,6 +6,7 @@
 Cryptocurrencies zijn steeds bekender en het bestaan ondertussen ontelbare soorten, met een steeds groter wordende doelgroep van mensen die erin geïntresseerd zijn en erin handelen. Het is lastig om de stijgingen en dalingen bij te houden en met elkaar te vergelijken, om te kijken wat de waarde is en of de ze beter wordt of niet. Kortom, het is niet overzichtelijk wat er gebeurd tussen de verschillende currencies.
 # Solution
 Een tracker app die de currencies bijhoudt en het mogelijk maakt ze te vergelijken met elkaar. 
+
 #### main features 
 - een lijst met beschikbare currencies
 - Een zoekmogelijkheid
@@ -14,9 +15,9 @@ Een tracker app die de currencies bijhoudt en het mogelijk maakt ze te vergelijk
 - vergelijken van 2 currencies
 - uitgebreide informatie van een currency bekijken bij click
 - lijst sorteren op een eigenschap, zoals prijs of rank.
+- login
 
 #### optional features
-- login
 - bijhouden hoeveel je van een coin zelf hebt en wat de waarde is
 - een calculator die uitrekent hoeveel coins hoeveel dollars waard is
 
@@ -65,3 +66,7 @@ de meeste functionaliteiten zijn qua functionaliteiten goed zelf te maken. Uitge
 #### hardest part
 - Gebruikers moeten favorieten kunnen opslaan. Dit kan met behulp van Firebase. Wat hier lastig aan is is dat het op verschillende manieren gedaan kan worden. bijvoorbeeld 1 grote lijst per gebruiker, of verschillende entries gekoppelt aan de gebruiker. 
 - Sorteren op verschillende eigenschappen. De lijst moet hergestructureerd worden op een eigenschap. Op zich is dit niet zo moeilijk, maar de functie overzichtelijk houden kan nog lastig zijn. Als er op meerdere eigenschappen tegelijk gesorteerd kan worden geeft dit mogelijk wel een probleem. 
+
+#### Visual Sketch
+een visuele uitwerking (tijdelijke) van hoe de applicatie er ongeveer uit gaat zien.
+![VisualSketchImage](/doc/flow.jpg?raw=true)
