@@ -23,13 +23,15 @@ Een tracker app die de currencies bijhoudt en het mogelijk maakt ze te vergelijk
 
 # Prerequisites
 #### data sources
-JSON API
+
+- JSON API
 https://coinmarketcap.com/api/
 De open dataset van coinmarketcap. 
 Hier staat informatie over de verschillende cryptocurrencies, zoals de total supply en hoeveel dollar het momenteel waard is. Ook is de rank van de currency beschikbaar.
 
 **sample data:**
 Alle waardes zijn strings en sommige moeten omgezet worden naar floats.
+
 ```
 [
     {
@@ -49,6 +51,10 @@ Alle waardes zijn strings en sommige moeten omgezet worden naar floats.
         "last_updated": "1472762067"
     },
 ```
+
+- JSON API
+https://www.cryptocompare.com/api#-api-data-histoday-
+Dagelijkse informatie over de currencies, om een grafiek mee te kunnen maken.
 
 #### external sources
 **Google Firebase** - maakt het mogelijk om gebruikers te registreren en in te loggen. Andere gebruikers data kan worden opgeslagen, zoals de favorieten van de gebruiker in dit geval.
