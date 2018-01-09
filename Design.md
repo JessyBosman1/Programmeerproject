@@ -1,7 +1,7 @@
 # Project Design
-![VisualSketchImage](/doc/design.JPGraw=true)
+![VisualSketchImage](/doc/design.jpg?raw=true)
 
-![VisualSketchImage](/doc/Diagrams.jpgraw=true)
+![VisualSketchImage](/doc/Diagrams.jpg?raw=true)
 a list of APIs and frameworks or plugins that you will be using to provide functionality in your app
 
 - JSON API
