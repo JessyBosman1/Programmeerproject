@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fmList = getSupportFragmentManager();
                     MainListFragment fragmentList = new MainListFragment();
                     FragmentTransaction ftList = fmList.beginTransaction();
-                    ftList.replace(R.id.fragment_container, fragmentList, "StartFragment");
+                    ftList.replace(R.id.fragment_container, fragmentList, "MainListFragment");
                     ftList.commit();
                     return true;
 
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                     FragmentManager fmInfo = getSupportFragmentManager();
                     InfoActivity fragmentInfo = new InfoActivity();
                     FragmentTransaction ftInfo = fmInfo.beginTransaction();
-                    ftInfo.replace(R.id.fragment_container, fragmentInfo, "StartFragment");
+                    ftInfo.replace(R.id.fragment_container, fragmentInfo, "InfoFragment");
                     ftInfo.commit();
                     return true;
             }
@@ -49,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+        // return to start fragment by replacing current fragment in fragment_containter.
+        FragmentManager fmList = getSupportFragmentManager();
+        MainListFragment fragmentList = new MainListFragment();
+        FragmentTransaction ftList = fmList.beginTransaction();
+        ftList.replace(R.id.fragment_container, fragmentList, "StartFragment");
+        ftList.commit();
     }
 
 
