@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -44,7 +48,8 @@ public class MainListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_list, container, false);
-        setListView();
+        getListData();
+
         return view;
     }
 
@@ -146,10 +151,6 @@ public class MainListFragment extends Fragment {
         coinSymbolList.add(Symbol);
     }
 
-    public void setListView() {
-        getListData();
-
-    }
 
     public void createListView(final JSONArray response){
         CustomListAdapter adapter = new CustomListAdapter(getActivity(), response);
@@ -158,6 +159,8 @@ public class MainListFragment extends Fragment {
         TextView testTextView = view.findViewById(R.id.testTextView);
 
         list.setAdapter(adapter);
+        initSearchBar(adapter);
+
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -166,19 +169,55 @@ public class MainListFragment extends Fragment {
                 try{
                     ;
                     JSONObject coinObject = response.getJSONObject(position);
-
+                    goToDetailed(coinObject);
                     Toast.makeText(getContext(), coinObject.getString("name"), Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("JSONException",e.toString());
                 }
-
-                //String Selecteditem= itemname[+position];
-                //Toast.makeText(getContext(), Selecteditem, Toast.LENGTH_SHORT).show();
-
             }
         });
+    }
+
+    private void goToDetailed(JSONObject coinObject) {
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+
+        // add Object to Bundle, so it is available in the detail fragment.
+        Bundle arguments = new Bundle();
+        arguments.putString("coinObject", coinObject.toString());
+
+        // go to info fragment.
+        InfoActivity fragment = new InfoActivity();
+        fragment.setArguments(arguments);
+
+        fm.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+    }
+
+    // set listener to searchbar, updating list when searching
+    private void initSearchBar(final CustomListAdapter adapter){
+        EditText inputSearch = getActivity().findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+                // When user changed the Text
+                adapter.getFilter().filter(cs);
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                // TODO Auto-generated method stub
+            }
+        });
+
     }
 }
 

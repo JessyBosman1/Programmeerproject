@@ -1,17 +1,12 @@
 package com.example.jebo.eindproject;
 
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -20,7 +15,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.helper.StaticLabelsFormatter;
 import com.jjoe64.graphview.series.DataPoint;
 import com.jjoe64.graphview.series.LineGraphSeries;
 
@@ -37,7 +31,22 @@ public class InfoActivity extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.activity_info, container, false);
-        loadData("ETH");
+
+        // Get variables from bundle, to obtain scores from last game.
+        Bundle bundle = this.getArguments();
+
+        // Check if bundle exists.
+        if (bundle != null) {
+            String coinObject = bundle.getString("coinObject", "");
+            try {
+                JSONObject selectedCoin = new JSONObject(coinObject);
+                loadData(selectedCoin.getString("symbol"));
+            }catch (JSONException e) {
+                Toast.makeText(getContext(), "cannot find coin data", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+
         return view;
     }
 
@@ -58,7 +67,6 @@ public class InfoActivity extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        mTextMessage = (TextView) getActivity().findViewById(R.id.message);
                         JSONArray dataArray;
 
                         GraphView graph = (GraphView) getActivity().findViewById(R.id.graph);
