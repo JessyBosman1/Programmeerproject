@@ -54,6 +54,12 @@ public class MainListFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        getListData();
+        super.onResume();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -93,10 +99,12 @@ public class MainListFragment extends Fragment {
 
                 symboltxt.setText(coinObject.get("symbol").toString());
                 changetxt.setText(coinObject.get("percent_change_24h").toString());
+                try{
                 if(Float.parseFloat(coinObject.get("percent_change_24h").toString()) < 0.0){
                     changetxt.setTextColor(0xffff4444);
                 }
                 else{changetxt.setTextColor(0xff669900);}
+                } catch (Exception e){Log.d("ParseError",e.toString());}
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d("JSONException",e.toString());
@@ -113,7 +121,7 @@ public class MainListFragment extends Fragment {
             RequestQueue queue = Volley.newRequestQueue(getActivity());
 
             // get data from API for the specific coin
-            String url = "https://api.coinmarketcap.com/v1/ticker/";
+            String url = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR";
 
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
@@ -154,6 +162,7 @@ public class MainListFragment extends Fragment {
 
     public void createListView(final JSONArray response){
         CustomListAdapter adapter = new CustomListAdapter(getActivity(), response);
+        adapter.clear();
 
         ListView list = view.findViewById(R.id.list);
         TextView testTextView = view.findViewById(R.id.testTextView);
@@ -191,7 +200,8 @@ public class MainListFragment extends Fragment {
         InfoActivity fragment = new InfoActivity();
         fragment.setArguments(arguments);
 
-        fm.beginTransaction().replace(R.id.fragment_container, fragment).addToBackStack(null).commit();
+        fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left).replace(R.id.fragment_container, fragment)
+                .addToBackStack(null).commit();
     }
 
     // set listener to searchbar, updating list when searching
