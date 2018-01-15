@@ -17,7 +17,7 @@
 ##### Woensdag 10-1-2018:
 - Wireflow afmaken
 - Data uit api
-- **Keuze**: data naar een ObjectArray, en bij aparte alleen benodigde Object doorsturen. Zo hoeft de data niet steeds te worden opgehaald en hoeft er minder data rondgestuurd te worden. Ook is het makkelijker aparte parameters van een object aan te roepen.
+- **KEUZE**: data naar een ObjectArray, en bij aparte alleen benodigde Object doorsturen. Zo hoeft de data niet steeds te worden opgehaald en hoeft er minder data rondgestuurd te worden. Ook is het makkelijker aparte parameters van een object aan te roepen.
 - Grafiek met data uit api
 - ![VisualSketchImage](/doc/11_1_image1.png?raw=true)
 
@@ -46,3 +46,12 @@
 - Fix bug3: lijst legen en opnieuw genereren @Override onResume() als er terug wordt gegaan
 - slide animatie naar info onclick listview item
 - ![VisualSketchImage](/doc/15_1_image1.png?raw=true)
+
+## week 2
+##### Maandag 15-1-2018:
+- Niewe plot met zogehete CandleSticks in het Infoscherm (advanced graph)
+- **KEUZE**: Ik wilde de huidige simpele versie van de graph vervanger door een meer geavanceerde, maar heb deze uiteindelijk met een switch beide gehouden.
+de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft extra gebruiksmogelijkheden en er wordt geen code weggegooid.
+- Bug2 **status**: searchbar wil nog steeds niet naar behoren werken en een nieuwe lijst genereren geeft momenteel problemen.
+- visuele sterren toegevoegd voor favorite (functionaliteit volgt later).
+- ![VisualSketchImage](/doc/15_1_image2.png?raw=true)
