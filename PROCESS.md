@@ -1,33 +1,33 @@
 # Process Book
 ## week 1
  **note**: Design keuzes zijn niet beschreven in deze week omdat het huidige design slechts tijdelijk is om de data zichtbaar te maken, en later pas echt wordt gedaan qua opmaak.
-##### Maandag 9-1-2018:
+##### Maandag 8-1-2018:
 - Design
 - Functionaliteiten bedenken
 - zie link voor gedetailleerd document
 - https://github.com/JessyBosman1/Programmeerproject/blob/master/DESIGN.md
 
-##### Dinsdag 10-1-2018:
+##### Dinsdag 9-1-2018:
 - Functies
 - Objecten
 - Wireflow
 - zie link voor gedetailleerd document
 - https://github.com/JessyBosman1/Programmeerproject/blob/master/README.md
 
-##### Woensdag 11-1-2018:
+##### Woensdag 10-1-2018:
 - Wireflow afmaken
 - Data uit api
 - **Keuze**: data naar een ObjectArray, en bij aparte alleen benodigde Object doorsturen. Zo hoeft de data niet steeds te worden opgehaald en hoeft er minder data rondgestuurd te worden. Ook is het makkelijker aparte parameters van een object aan te roepen.
 - Grafiek met data uit api
 - ![VisualSketchImage](/doc/11_1_image1.png?raw=true)
 
-##### Donderdag 12-1-2018:
+##### Donderdag 11-1-2018:
 - Listview template
 - Listview invullen met data
 - Bug1: listview genereert lege velden als er geen data meer beschikbaar is
 - ![VisualSketchImage](/doc/12_1_image1.png?raw=true)
 
-##### Vrijdag 13-1-2018:
+##### Vrijdag 12-1-2018:
 - Presentatie
 - Fix Bug1: later data pas ophalen
 - Infoscherm grafiek implementeren en onclick op listview
