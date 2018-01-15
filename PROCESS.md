@@ -42,7 +42,7 @@
 - ![VisualSketchImage](/doc/14_1_image1.png?raw=true)
 
 ##### Zondag 14-1-2018:
-- Naar het bos AJ
+- Naar het bos met AJ
 - Fix bug3: lijst legen en opnieuw genereren @Override onResume() als er terug wordt gegaan
 - slide animatie naar info onclick listview item
 - ![VisualSketchImage](/doc/15_1_image1.png?raw=true)
