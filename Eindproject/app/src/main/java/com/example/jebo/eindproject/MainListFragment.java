@@ -26,16 +26,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.jjoe64.graphview.GraphView;
-import com.jjoe64.graphview.series.DataPoint;
-import com.jjoe64.graphview.series.LineGraphSeries;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
 
 import java.util.ArrayList;
+
 
 public class MainListFragment extends Fragment {
     public View view;
@@ -109,8 +106,6 @@ public class MainListFragment extends Fragment {
                 e.printStackTrace();
                 Log.d("JSONException",e.toString());
             }
-
-
             return rowView;
 
         }
@@ -165,10 +160,9 @@ public class MainListFragment extends Fragment {
         adapter.clear();
 
         ListView list = view.findViewById(R.id.list);
-        TextView testTextView = view.findViewById(R.id.testTextView);
 
         list.setAdapter(adapter);
-        initSearchBar(adapter);
+        initSearchBar(adapter, response);
 
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -205,15 +199,15 @@ public class MainListFragment extends Fragment {
     }
 
     // set listener to searchbar, updating list when searching
-    private void initSearchBar(final CustomListAdapter adapter){
+    private void initSearchBar(final CustomListAdapter adapter, final JSONArray Array){
         EditText inputSearch = getActivity().findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-                // When user changed the Text
-                adapter.getFilter().filter(cs);
+
             }
+
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
@@ -227,6 +221,7 @@ public class MainListFragment extends Fragment {
                 // TODO Auto-generated method stub
             }
         });
+
 
     }
 }
