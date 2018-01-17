@@ -162,23 +162,38 @@ public class MainListFragment extends Fragment {
         ListView list = view.findViewById(R.id.list);
 
         list.setAdapter(adapter);
-        initSearchBar(adapter, response);
-
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 try{
-                    ;
                     JSONObject coinObject = response.getJSONObject(position);
                     goToDetailed(coinObject);
-                    Toast.makeText(getContext(), coinObject.getString("name"), Toast.LENGTH_SHORT).show();
                 }
                 catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("JSONException",e.toString());
                 }
+            }
+        });
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view,
+                                           int position, long id) {
+                try{
+                    JSONObject coinObject = response.getJSONObject(position);
+                    Toast.makeText(getContext(), coinObject.getString("name"), Toast.LENGTH_SHORT).show();
+
+                    ImageView favIcon = parent.getChildAt(position).findViewById(R.id.favIcon);
+                    favIcon.setImageResource(android.R.drawable.btn_star_big_on);
+
+                }
+                catch (JSONException e) {
+                    e.printStackTrace();
+                    Log.d("JSONException",e.toString());
+                }
+                return true;
             }
         });
     }
@@ -198,31 +213,6 @@ public class MainListFragment extends Fragment {
                 .addToBackStack(null).commit();
     }
 
-    // set listener to searchbar, updating list when searching
-    private void initSearchBar(final CustomListAdapter adapter, final JSONArray Array){
-        EditText inputSearch = getActivity().findViewById(R.id.inputSearch);
-        inputSearch.addTextChangedListener(new TextWatcher() {
 
-            @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
-
-            }
-
-
-            @Override
-            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable arg0) {
-                // TODO Auto-generated method stub
-            }
-        });
-
-
-    }
 }
 
