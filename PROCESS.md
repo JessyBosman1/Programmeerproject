@@ -55,3 +55,11 @@ de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft 
 - Bug2 **status**: searchbar wil nog steeds niet naar behoren werken en een nieuwe lijst genereren geeft momenteel problemen.
 - visuele sterren toegevoegd voor favorite (functionaliteit volgt later).
 - ![VisualSketchImage](/doc/15_1_image2.png?raw=true)
+
+##### Dinsdag 16-1-2018:
+- ![VisualSketchImage](/doc/16_1_image1.png?raw=true)
+
+##### Woensdag 17-1-2018:
+- de sterren achter de listview zijn nu clickable met een longclick. Ze veranderen dan van kleur om aan te geven dat ze zijn toegevoegd, de echt functionaliteit staat op de planning voor morgen. 
+- **keuze** De zoekbalk werkte, maar een listener om bij iedere change, dus bij iedere letter de lijst dynamisch aan te passen duurde soms te lang, wat resulteert in crashes als het typen sneller gaat dan het updaten. Daarom heb ik deze zoekbalk verwijderd en vervangen door een textveld en een knop om te zoeken. Dit is minder dynamisch, maar zorgt ervoor dat de applicatie wordt overbelast en crashed. 
+- ![VisualSketchImage](/doc/17_1_image1.png?raw=true)
