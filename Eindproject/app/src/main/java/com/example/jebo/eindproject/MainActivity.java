@@ -22,7 +22,12 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_home:
                     // return to start fragment by replacing current fragment in fragment_containter.
                     FragmentManager fmList = getSupportFragmentManager();
+
+                    Bundle argumentsStandard = new Bundle();
+                    argumentsStandard.putString("method", "standard");
+
                     MainListFragment fragmentList = new MainListFragment();
+                    fragmentList.setArguments(argumentsStandard);
                     FragmentTransaction ftList = fmList.beginTransaction();
                     ftList.replace(R.id.fragment_container, fragmentList, "MainListFragment");
                     ftList.commit();
@@ -30,11 +35,15 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_favorite:
                     // return to start fragment by replacing current fragment in fragment_containter.
-                    FragmentManager fmInfo = getSupportFragmentManager();
-                    InfoActivity fragmentInfo = new InfoActivity();
-                    FragmentTransaction ftInfo = fmInfo.beginTransaction();
-                    ftInfo.replace(R.id.fragment_container, fragmentInfo, "InfoFragment");
-                    ftInfo.commit();
+                    FragmentManager fmFav = getSupportFragmentManager();
+                    Bundle argumentsFav = new Bundle();
+                    argumentsFav.putString("method", "favorite");
+
+                    MainListFragment favorites = new MainListFragment();
+                    favorites.setArguments(argumentsFav);
+                    FragmentTransaction ftFav = fmFav.beginTransaction();
+                    ftFav.replace(R.id.fragment_container, favorites, "FavFragment");
+                    ftFav.commit();
                     return true;
             }
             return false;
@@ -50,8 +59,12 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         // return to start fragment by replacing current fragment in fragment_containter.
+        Bundle arguments = new Bundle();
+        arguments.putString("method", "standard");
+
         FragmentManager fmList = getSupportFragmentManager();
         MainListFragment fragmentList = new MainListFragment();
+        fragmentList.setArguments(arguments);
         FragmentTransaction ftList = fmList.beginTransaction();
         ftList.replace(R.id.fragment_container, fragmentList, "StartFragment");
         ftList.commit();

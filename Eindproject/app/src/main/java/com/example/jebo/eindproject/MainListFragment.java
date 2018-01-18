@@ -42,14 +42,14 @@ import static android.content.Context.MODE_PRIVATE;
 public class MainListFragment extends Fragment {
     public View view;
     public ArrayList<String> coinNameList = new ArrayList<String>();
-    public ArrayList<String> coinSymbolList = new ArrayList<String>();
-
+    public String Method;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_list, container, false);
+
         getListData();
 
         return view;
@@ -64,74 +64,18 @@ public class MainListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-
-
-    public class CustomListAdapter extends ArrayAdapter<String> {
-
-        private final Activity context;
-        private final JSONArray coinObjects;
-
-        public CustomListAdapter(Activity context, JSONArray coinObjects) {
-            super(context, R.layout.rowlayout, coinNameList);
-            this.context = context;
-            this.coinObjects = coinObjects;
+        // Get variables from bundle, to obtain the method of the list display.
+        Bundle bundle = this.getArguments();
+        // Check if bundle exists.
+        if (bundle != null) {
+            Method = bundle.getString("method", "standard");
         }
-
-        public View getView(int position, View view, @NonNull ViewGroup parent) {
-            LayoutInflater inflater=context.getLayoutInflater();
-            View rowView = inflater.inflate(R.layout.rowlayout, null,true);
-
-            TextView txtRank = rowView.findViewById(R.id.rankField);
-            TextView txtTitle = rowView.findViewById(R.id.item);
-            ImageView imageView = rowView.findViewById(R.id.icon);
-            TextView symboltxt = rowView.findViewById(R.id.symbolField);
-            TextView changetxt = rowView.findViewById(R.id.changeField);
-            ImageView favIcon = rowView.findViewById(R.id.favIcon);
-
-            try {
-                JSONObject coinObject = coinObjects.getJSONObject(position);
-
-                txtRank.setText(coinObject.get("rank").toString());
-                txtTitle.setText(coinObject.get("name").toString());
-
-                Glide.with(context)
-                        .load("https://files.coinmarketcap.com/static/img/coins/64x64/" + coinObject.get("id").toString() + ".png")
-                        .into(imageView);
-
-                symboltxt.setText(coinObject.get("symbol").toString());
-
-
-                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
-
-                Map<String, ?> allEntries = favPrefs.getAll();
-                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
-                    if (entry.getValue().toString().equals("true") && entry.getKey().equals(coinObject.get("name").toString())){
-                        favIcon.setImageResource(android.R.drawable.btn_star_big_on);
-                    }
-                }
-
-                changetxt.setText(coinObject.get("percent_change_24h").toString());
-                try{
-                if(Float.parseFloat(coinObject.get("percent_change_24h").toString()) < 0.0){
-                    changetxt.setTextColor(0xffff4444);
-                }
-                else{changetxt.setTextColor(0xff669900);}
-                } catch (Exception e){Log.d("ParseError",e.toString());}
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.d("JSONException",e.toString());
-            }
-            return rowView;
-
-        }
+        Log.d("method", bundle.toString());
     }
 
     public void getListData(){
             // Instantiate the RequestQueue.
-            RequestQueue queue = Volley.newRequestQueue(getActivity());
+            RequestQueue queue = Volley.newRequestQueue(getContext());
 
             // get data from API for the specific coin
             String url = "https://api.coinmarketcap.com/v1/ticker/?convert=EUR";
@@ -147,7 +91,7 @@ public class MainListFragment extends Fragment {
 
                                 for(int i=0;i<jsonArray.length();i++){
                                     JSONObject coinObject = jsonArray.getJSONObject(i);
-                                    addObjectToLists(coinObject.getString("name"), coinObject.getString("symbol"));
+                                    addObjectToLists(coinObject.getString("name"));
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();
@@ -167,14 +111,48 @@ public class MainListFragment extends Fragment {
             queue.add(stringRequest);
         }
 
-    public void addObjectToLists(String Name, String Symbol){
-        coinNameList.add(Name);
-        coinSymbolList.add(Symbol);
+    public void addObjectToLists(String Name){
+        if (Method.equals("standard")){
+            coinNameList.add(Name);
+        }
+        else if(Method.equals("favorite")){
+            SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+            Log.d("favPrefs","enter");
+            Boolean prefExist = favPrefs.getBoolean(Name, false);
+            if (prefExist){
+                coinNameList.add(Name);
+            }
+        }
     }
 
 
     public void createListView(final JSONArray response){
-        CustomListAdapter adapter = new CustomListAdapter(getActivity(), response);
+        JSONArray favoriteCoins = new JSONArray();
+        coinListAdapter adapter;
+
+        if (Method.equals("favorite")) {
+            try {
+                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject coinObject = response.getJSONObject(i);
+
+                    Boolean prefExist = favPrefs.getBoolean((coinObject.getString("name")), false);
+                    if (prefExist){
+                        favoriteCoins.put(coinObject);
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            //Log.d("method",favoriteCoins.toString());
+            Log.d("method",coinNameList.toString());
+            adapter = new coinListAdapter(getActivity(), favoriteCoins, coinNameList);
+        }
+
+        else{
+            adapter = new coinListAdapter(getActivity(), response, coinNameList);
+        }
+
         adapter.clear();
 
         ListView list = view.findViewById(R.id.list);
