@@ -1,12 +1,14 @@
 package com.example.jebo.eindproject;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.AndroidException;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class MainListFragment extends Fragment {
@@ -83,6 +88,7 @@ public class MainListFragment extends Fragment {
             ImageView imageView = rowView.findViewById(R.id.icon);
             TextView symboltxt = rowView.findViewById(R.id.symbolField);
             TextView changetxt = rowView.findViewById(R.id.changeField);
+            ImageView favIcon = rowView.findViewById(R.id.favIcon);
 
             try {
                 JSONObject coinObject = coinObjects.getJSONObject(position);
@@ -95,6 +101,17 @@ public class MainListFragment extends Fragment {
                         .into(imageView);
 
                 symboltxt.setText(coinObject.get("symbol").toString());
+
+
+                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+
+                Map<String, ?> allEntries = favPrefs.getAll();
+                for (Map.Entry<String, ?> entry : allEntries.entrySet()) {
+                    if (entry.getValue().toString().equals("true") && entry.getKey().equals(coinObject.get("name").toString())){
+                        favIcon.setImageResource(android.R.drawable.btn_star_big_on);
+                    }
+                }
+
                 changetxt.setText(coinObject.get("percent_change_24h").toString());
                 try{
                 if(Float.parseFloat(coinObject.get("percent_change_24h").toString()) < 0.0){
@@ -102,6 +119,7 @@ public class MainListFragment extends Fragment {
                 }
                 else{changetxt.setTextColor(0xff669900);}
                 } catch (Exception e){Log.d("ParseError",e.toString());}
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.d("JSONException",e.toString());
@@ -183,10 +201,22 @@ public class MainListFragment extends Fragment {
                                            int position, long id) {
                 try{
                     JSONObject coinObject = response.getJSONObject(position);
-                    Toast.makeText(getContext(), coinObject.getString("name"), Toast.LENGTH_SHORT).show();
 
-                    ImageView favIcon = parent.getChildAt(position).findViewById(R.id.favIcon);
-                    favIcon.setImageResource(android.R.drawable.btn_star_big_on);
+                    Log.d("parent", coinObject.getString("name"));
+
+                    ImageView favIcon = view.findViewById(R.id.favIcon);
+
+                    SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+                    Boolean prefExist = favPrefs.getBoolean(coinObject.getString("name"), false);
+
+                    if (prefExist){
+                        favIcon.setImageResource(android.R.drawable.btn_star_big_off);
+                        updateFavorites(coinObject.getString("name"), false);
+                    }
+                    else {
+                        favIcon.setImageResource(android.R.drawable.btn_star_big_on);
+                        updateFavorites(coinObject.getString("name"), true);
+                    }
 
                 }
                 catch (JSONException e) {
@@ -194,6 +224,17 @@ public class MainListFragment extends Fragment {
                     Log.d("JSONException",e.toString());
                 }
                 return true;
+            }
+            private void updateFavorites(String coinName, Boolean isFavorite){
+                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+
+                if (isFavorite){
+                favPrefs.edit().putBoolean(coinName, isFavorite).apply();
+                }
+                else {
+                    favPrefs.edit().remove(coinName).apply();
+                }
+
             }
         });
     }
@@ -212,6 +253,8 @@ public class MainListFragment extends Fragment {
         fm.beginTransaction().setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left).replace(R.id.fragment_container, fragment)
                 .addToBackStack(null).commit();
     }
+
+
 
 
 }
