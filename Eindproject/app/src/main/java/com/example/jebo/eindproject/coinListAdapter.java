@@ -44,13 +44,18 @@ public class coinListAdapter extends ArrayAdapter<String> {
         ImageView imageView = rowView.findViewById(R.id.icon);
         TextView symboltxt = rowView.findViewById(R.id.symbolField);
         TextView changetxt = rowView.findViewById(R.id.changeField);
+        TextView pricetxt = rowView.findViewById(R.id.priceField);
+        TextView pricetxtBtc = rowView.findViewById(R.id.priceFieldBtc);
         ImageView favIcon = rowView.findViewById(R.id.favIcon);
+
 
         try {
             JSONObject coinObject = coinObjects.getJSONObject(position);
 
             txtRank.setText(coinObject.get("rank").toString());
             txtTitle.setText(coinObject.get("name").toString());
+            pricetxt.setText("€" + coinObject.get("price_eur").toString());
+            pricetxtBtc.setText("btc" + coinObject.get("price_btc").toString());
 
             Glide.with(context)
                     .load("https://files.coinmarketcap.com/static/img/coins/64x64/" + coinObject.get("id").toString() + ".png")
@@ -68,7 +73,7 @@ public class coinListAdapter extends ArrayAdapter<String> {
                 }
             }
 
-            changetxt.setText(coinObject.get("percent_change_24h").toString());
+            changetxt.setText(coinObject.get("percent_change_24h").toString() + "%(24h)");
             try{
                 if(Float.parseFloat(coinObject.get("percent_change_24h").toString()) < 0.0){
                     changetxt.setTextColor(0xffff4444);
