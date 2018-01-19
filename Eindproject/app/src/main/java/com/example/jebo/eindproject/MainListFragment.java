@@ -3,6 +3,7 @@ package com.example.jebo.eindproject;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -35,6 +36,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
@@ -43,6 +46,8 @@ public class MainListFragment extends Fragment {
     public View view;
     public ArrayList<String> coinNameList = new ArrayList<String>();
     public String Method;
+    private Boolean searchBarActive;
+    Parcelable state;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,15 +55,23 @@ public class MainListFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_list, container, false);
 
-        getListData();
+        getListData(null);
 
         return view;
     }
 
     @Override
     public void onResume() {
-        getListData();
+        getListData(null);
         super.onResume();
+    }
+
+    @Override
+    public void onPause() {
+        // Save ListView state @ onPause
+        ListView list = view.findViewById(R.id.list);
+        state = list.onSaveInstanceState();
+        super.onPause();
     }
 
     @Override
@@ -73,7 +86,7 @@ public class MainListFragment extends Fragment {
         Log.d("method", bundle.toString());
     }
 
-    public void getListData(){
+    public void getListData(final String filterText){
             // Instantiate the RequestQueue.
             RequestQueue queue = Volley.newRequestQueue(getContext());
 
@@ -86,13 +99,37 @@ public class MainListFragment extends Fragment {
                         public void onResponse(String response) {
 
                             try {
+                                coinNameList.clear();
                                 JSONArray jsonArray = new JSONArray(response);
-                                createListView(jsonArray);
+                                JSONArray filteredArray = new JSONArray();
 
-                                for(int i=0;i<jsonArray.length();i++){
-                                    JSONObject coinObject = jsonArray.getJSONObject(i);
-                                    addObjectToLists(coinObject.getString("name"));
+                                if (filterText != null){
+                                    for(int i=0;i<jsonArray.length();i++){
+                                        JSONObject coinObject = jsonArray.getJSONObject(i);
+                                        if (coinObject.getString("name").equals(filterText)){
+                                            filteredArray.put(coinObject);
+                                            addObjectToLists(coinObject.getString("name"));
+                                        }
+
+                                    }
+                                    createListView(filteredArray);
+                                    if (searchBarActive == null){
+                                        initSearchBar(filteredArray);
+                                    }
                                 }
+
+                                else {
+                                    createListView(jsonArray);
+                                    if (searchBarActive == null) {
+                                        initSearchBar(jsonArray);
+                                    }
+
+                                    for (int i = 0; i < jsonArray.length(); i++) {
+                                        JSONObject coinObject = jsonArray.getJSONObject(i);
+                                        addObjectToLists(coinObject.getString("name"));
+                                    }
+                                }
+
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
@@ -127,6 +164,7 @@ public class MainListFragment extends Fragment {
 
 
     public void createListView(final JSONArray response){
+        Log.d("test",coinNameList.toString());
         JSONArray favoriteCoins = new JSONArray();
         coinListAdapter adapter;
 
@@ -158,6 +196,11 @@ public class MainListFragment extends Fragment {
         ListView list = view.findViewById(R.id.list);
 
         list.setAdapter(adapter);
+
+        // Restore previous state (scroll position)
+        if(state != null) {
+            list.onRestoreInstanceState(state);
+        }
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -232,8 +275,43 @@ public class MainListFragment extends Fragment {
                 .addToBackStack(null).commit();
     }
 
+    // set listener to searchbar, updating list when searching
+    private void initSearchBar(final JSONArray Array){
+        final EditText inputSearch = view.findViewById(R.id.inputSearch);
+        inputSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+
+            }
 
 
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+            }
 
+            Timer timer=new Timer();
+            final long DELAY = 2000; // milliseconds
+
+            @Override
+            public void afterTextChanged(Editable arg0) {
+                timer.cancel();
+                timer = new Timer();
+                timer.schedule(
+                        new TimerTask() {
+                            @Override
+                            public void run() {
+                                getListData(inputSearch.getText().toString());
+                            }
+                        },
+                        DELAY
+                );
+            }
+
+        });
+
+
+    }
 }
 
