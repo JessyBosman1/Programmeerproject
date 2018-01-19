@@ -48,10 +48,9 @@ public class coinListAdapter extends ArrayAdapter<String> {
         TextView pricetxtBtc = rowView.findViewById(R.id.priceFieldBtc);
         ImageView favIcon = rowView.findViewById(R.id.favIcon);
 
-
         try {
             JSONObject coinObject = coinObjects.getJSONObject(position);
-
+            Log.d("adapter", coinObject.toString());
             txtRank.setText(coinObject.get("rank").toString());
             txtTitle.setText(coinObject.get("name").toString());
             pricetxt.setText("€" + coinObject.get("price_eur").toString());

@@ -94,15 +94,20 @@
                 android:layout_weight="1"
                 android:checked="true"
                 android:drawableBottom="@drawable/linechart_icon_no_axes"
-                android:text="ToggleButton" />
+                android:textOff="@null"
+                android:textOn="@null"
+                android:textSize="0sp"/>
 
             <ToggleButton
                 android:id="@+id/toggleCandlestick"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+
                 android:drawableBottom="@drawable/candlestick_icon_no_axes"
-                android:text="ToggleButton" />
+                android:textOff="@null"
+                android:textOn="@null"
+                android:textSize="0sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -122,35 +127,43 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/toggle_selector"
                 android:buttonTint="@android:color/holo_orange_dark"
                 android:checked="true"
+                android:textColor="@color/colorPrimary"
                 android:textOff="1H"
                 android:textOn="1H" />
-
-            <ToggleButton
-                android:id="@+id/toggle12H"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="ToggleButton"
-                android:textOff="12H"
-                android:textOn="12H" />
 
             <ToggleButton
                 android:id="@+id/toggle1D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/toggle_selector"
                 android:text="ToggleButton"
+                android:textColor="@color/colorPrimary"
                 android:textOff="1D"
                 android:textOn="1D" />
+
+            <ToggleButton
+                android:id="@+id/toggle12H"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/toggle_selector"
+                android:text="ToggleButton"
+                android:textColor="@color/colorPrimary"
+                android:textOff="12H"
+                android:textOn="12H" />
 
             <ToggleButton
                 android:id="@+id/toggle7D"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:background="@drawable/toggle_selector"
                 android:text="ToggleButton"
+                android:textColor="@color/colorPrimary"
                 android:textOff="7D"
                 android:textOn="7D" />
 

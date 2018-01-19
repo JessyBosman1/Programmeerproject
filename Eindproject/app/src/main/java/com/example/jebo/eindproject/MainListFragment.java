@@ -55,14 +55,14 @@ public class MainListFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_main_list, container, false);
 
-        getListData(null);
+        getListData("");
 
         return view;
     }
 
     @Override
     public void onResume() {
-        getListData(null);
+        //getListData("B");
         super.onResume();
     }
 
@@ -103,24 +103,30 @@ public class MainListFragment extends Fragment {
                                 JSONArray jsonArray = new JSONArray(response);
                                 JSONArray filteredArray = new JSONArray();
 
-                                if (filterText != null){
+                                if (!filterText.equals("")){
+                                    createListView(filteredArray);
+
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject coinObject = jsonArray.getJSONObject(i);
-                                        if (coinObject.getString("name").equals(filterText)){
-                                            filteredArray.put(coinObject);
+                                        if (coinObject.getString("name").toLowerCase().contains(filterText.toLowerCase())){
+                                            Log.d("input", coinObject.getString("name"));
                                             addObjectToLists(coinObject.getString("name"));
+                                            filteredArray.put(coinObject);
                                         }
 
                                     }
-                                    createListView(filteredArray);
+
                                     if (searchBarActive == null){
+                                        searchBarActive = true;
                                         initSearchBar(filteredArray);
                                     }
                                 }
 
                                 else {
+                                    Log.d("test", "running?");
                                     createListView(jsonArray);
                                     if (searchBarActive == null) {
+                                        searchBarActive = true;
                                         initSearchBar(jsonArray);
                                     }
 
@@ -165,6 +171,8 @@ public class MainListFragment extends Fragment {
 
     public void createListView(final JSONArray response){
         Log.d("test",coinNameList.toString());
+        Log.d("test", response.toString());
+
         JSONArray favoriteCoins = new JSONArray();
         coinListAdapter adapter;
 
@@ -182,8 +190,6 @@ public class MainListFragment extends Fragment {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            //Log.d("method",favoriteCoins.toString());
-            Log.d("method",coinNameList.toString());
             adapter = new coinListAdapter(getActivity(), favoriteCoins, coinNameList);
         }
 
@@ -292,7 +298,7 @@ public class MainListFragment extends Fragment {
             }
 
             Timer timer=new Timer();
-            final long DELAY = 2000; // milliseconds
+            final long DELAY = 500; // milliseconds
 
             @Override
             public void afterTextChanged(Editable arg0) {
