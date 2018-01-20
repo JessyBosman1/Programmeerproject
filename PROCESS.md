@@ -57,9 +57,23 @@ de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft 
 - ![VisualSketchImage](/doc/15_1_image2.png?raw=true)
 
 ##### Dinsdag 16-1-2018:
+- as labels voor grafieken; de UNIX waardes worden geparsed, waardoor de asses dagen of daguren weergeeft. 
+- **keuze** simpele grafiek overgezet naar andere online resource (zelfde als candlestick graph). De oude stond geen labels toe, de nieuwe versie wel en is dus completer. 
+- as keuze toegevoegd: het is nu mogelijk om te wisselen tussen bijvoorbeeld een 1 uur of een 1 dag weergave.
 - ![VisualSketchImage](/doc/16_1_image1.png?raw=true)
 
 ##### Woensdag 17-1-2018:
 - de sterren achter de listview zijn nu clickable met een longclick. Ze veranderen dan van kleur om aan te geven dat ze zijn toegevoegd, de echt functionaliteit staat op de planning voor morgen. 
 - **keuze** De zoekbalk werkte, maar een listener om bij iedere change, dus bij iedere letter de lijst dynamisch aan te passen duurde soms te lang, wat resulteert in crashes als het typen sneller gaat dan het updaten. Daarom heb ik deze zoekbalk verwijderd en vervangen door een textveld en een knop om te zoeken. Dit is minder dynamisch, maar zorgt ervoor dat de applicatie wordt overbelast en crashed. 
 - ![VisualSketchImage](/doc/17_1_image1.png?raw=true)
+
+#### Donderdag 18-1-2018:
+- functionaliteiten toegevoegd voor favorites en werken naar behoren. **keuze** Deze worden lokaal opgeslagen omdat dit eenvoudiger is dan communiceren met een online database, en het is geen gevoelige informatie die persé achter een login moet zitten.
+- ![Favorites](/doc/18_1_image1.png?raw=true)
+
+#### Vrijdag 19-1-2018:
+- Zoekbalk werkt
+- zoekbalk resultaten updaten per letter, mits er geen volgende letter volgt binnen een halve seconde. (Dit voelt dynamisch goed aan en overbelast de updatesnelheid van de listview niet.)
+- **NOTE** zoekbalk haalt nu data iedere keer opniew online op, dit is beter om te veranderen in het zoeken door het opgehaalde object, om data verbruik te verminderen, dit moet nog geïmplementeerd worden. 
+- opmaak select buttons grafiek geupdate, is nu meer in-line met design van pagina.
+- ![VisualSketchImage](/doc/19_1_image1.png?raw=true)![VisualSketchImage](/doc/19_1_image2.png?raw=true)
