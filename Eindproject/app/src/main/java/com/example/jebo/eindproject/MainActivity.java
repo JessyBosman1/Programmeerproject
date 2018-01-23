@@ -25,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager FM = getSupportFragmentManager();
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     // return to start fragment by replacing current fragment in fragment_containter.
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
                     MainListFragment fragmentList = new MainListFragment();
                     fragmentList.setArguments(argumentsStandard);
-                    FragmentTransaction ftList = fmList.beginTransaction();
+                    FragmentTransaction ftList = FM.beginTransaction();
                     ftList.replace(R.id.fragment_container, fragmentList, "MainListFragment");
                     ftList.commit();
                     return true;
@@ -48,9 +49,20 @@ public class MainActivity extends AppCompatActivity {
 
                     MainListFragment favorites = new MainListFragment();
                     favorites.setArguments(argumentsFav);
-                    FragmentTransaction ftFav = fmFav.beginTransaction();
+                    FragmentTransaction ftFav = FM.beginTransaction();
                     ftFav.replace(R.id.fragment_container, favorites, "FavFragment");
                     ftFav.commit();
+                    return true;
+
+                case R.id.navigation_compare:
+                    FragmentManager fmCompare = getSupportFragmentManager();
+                    CompareFragment compare = new CompareFragment();
+                    FM.beginTransaction().replace(R.id.fragment_container, compare, "FavFragment").commit();
+                    return true;
+
+                case R.id.navigation_wallet:
+                    WalletFragment wallet = new WalletFragment();
+                    FM.beginTransaction().replace(R.id.fragment_container, wallet, "FavFragment").commit();
                     return true;
             }
             return false;

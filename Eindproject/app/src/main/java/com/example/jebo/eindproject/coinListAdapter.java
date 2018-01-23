@@ -40,7 +40,7 @@ public class coinListAdapter extends ArrayAdapter<String> {
         View rowView = inflater.inflate(R.layout.rowlayout, null,true);
 
         TextView txtRank = rowView.findViewById(R.id.rankField);
-        TextView txtTitle = rowView.findViewById(R.id.item);
+        TextView txtTitle = rowView.findViewById(R.id.name);
         ImageView imageView = rowView.findViewById(R.id.icon);
         TextView symboltxt = rowView.findViewById(R.id.symbolField);
         TextView changetxt = rowView.findViewById(R.id.changeField);

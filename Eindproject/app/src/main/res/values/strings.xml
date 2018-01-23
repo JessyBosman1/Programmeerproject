@@ -3,6 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_notifications">Notifications</string>
+    <string name="title_compare">Compare</string>
+    <string name="title_wallet">Wallet</string>
     <string name="title_dashboard" />
 
     <!-- TODO: Remove or change this placeholder text -->

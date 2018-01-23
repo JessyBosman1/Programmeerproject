@@ -37,7 +37,7 @@
             app:layout_constraintVertical_bias="0.625" />
 
         <TextView
-            android:id="@+id/item"
+            android:id="@+id/name"
             android:layout_width="74dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
@@ -63,7 +63,7 @@
             android:text="SYM"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/item"
+            app:layout_constraintStart_toEndOf="@+id/name"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
