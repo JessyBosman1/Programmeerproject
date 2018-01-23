@@ -84,10 +84,11 @@ de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft 
 
 #### Maandag 22-1-2018:
 - **keuze** Day/NightMode :
-- - Fijner lezen 's avonds
-- - Minder energie verbruik
-- - Is minder vermoeiend voor de ogen
+  - Fijner lezen 's avonds
+  - Minder energie verbruik
+  - Is minder vermoeiend voor de ogen
 - Dag en Nacht modes optie gemaakt
 - Wisselen met de klik van een knop, preference wordt onthouden voor de volgende keren
 - FadeIn en FadeOut animatie tussen de modes
+- 2 Logo's gemaakt
 - ![VisualSketchImage](/doc/22_1_image1.png?raw=true) ![VisualSketchImage](/doc/22_1_image2.png?raw=true)
