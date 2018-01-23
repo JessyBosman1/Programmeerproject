@@ -1,17 +1,24 @@
 package com.example.jebo.eindproject;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-
-    private TextView mTextMessage;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,12 +59,44 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        final SharedPreferences settings = getSharedPreferences("Settings", MODE_PRIVATE);
+        Boolean nightMode = settings.getBoolean("DayNightMode", false);
+        Log.d("nightMode", nightMode.toString());
+
+        if (nightMode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        }
+        else{AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);}
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Switch DayNightSwitch =  findViewById(R.id.DayNightMode);
+        if (nightMode) {DayNightSwitch.setChecked(true);}
+        else{DayNightSwitch.setChecked(false);}
+
+                DayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                                                      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                                                          if (isChecked) {
+                                                              settings.edit().putBoolean("DayNightMode", true).apply();
+                                                              resetMainActivity();
+                                                              Log.d("DayNightMode", "true");
+                                                          } else {
+                                                              settings.edit().putBoolean("DayNightMode", false).apply();
+                                                              resetMainActivity();
+                                                              Log.d("DayNightMode", "false");
+
+                                                          }
+                                                      }
+                                                  });
+        startListView();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
+
+    }
+
+    private void startListView(){
         // return to start fragment by replacing current fragment in fragment_containter.
         Bundle arguments = new Bundle();
         arguments.putString("method", "standard");
@@ -70,5 +109,10 @@ public class MainActivity extends AppCompatActivity {
         ftList.commit();
     }
 
-
+    public void resetMainActivity(){
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
 }

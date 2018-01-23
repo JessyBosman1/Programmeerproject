@@ -7,6 +7,8 @@ import android.os.Parcelable;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AndroidException;
@@ -16,11 +18,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -53,12 +58,13 @@ public class MainListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_main_list, container, false);
 
+        view = inflater.inflate(R.layout.fragment_main_list, container, false);
         getListData("");
 
         return view;
     }
+
 
     @Override
     public void onResume() {
@@ -76,8 +82,10 @@ public class MainListFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         // Get variables from bundle, to obtain the method of the list display.
+
         Bundle bundle = this.getArguments();
         // Check if bundle exists.
         if (bundle != null) {
@@ -85,6 +93,7 @@ public class MainListFragment extends Fragment {
         }
         Log.d("method", bundle.toString());
     }
+
 
     public void getListData(final String filterText){
             // Instantiate the RequestQueue.
@@ -109,7 +118,6 @@ public class MainListFragment extends Fragment {
                                     for(int i=0;i<jsonArray.length();i++){
                                         JSONObject coinObject = jsonArray.getJSONObject(i);
                                         if (coinObject.getString("name").toLowerCase().contains(filterText.toLowerCase())){
-                                            Log.d("input", coinObject.getString("name"));
                                             addObjectToLists(coinObject.getString("name"));
                                             filteredArray.put(coinObject);
                                         }
@@ -123,7 +131,6 @@ public class MainListFragment extends Fragment {
                                 }
 
                                 else {
-                                    Log.d("test", "running?");
                                     createListView(jsonArray);
                                     if (searchBarActive == null) {
                                         searchBarActive = true;

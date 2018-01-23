@@ -148,15 +148,15 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
 
                 if(urlParam.equals("&tsym=EUR&limit=60")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=12")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=24")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=7")){
@@ -186,7 +186,8 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
 
             xAxis.setLabelRotationAngle(-50);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
+            xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
             lineChart.getAxisRight().setEnabled(false);
 
             Legend legend = lineChart.getLegend();
@@ -215,15 +216,15 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
 
                 if(urlParam.equals("&tsym=EUR&limit=60")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=12")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=24")){
-                    String format = new SimpleDateFormat("hh:mm").format(new java.util.Date(UNIX));
+                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
                     numMap.put(i,format);
                 }
                 else if (urlParam.equals("&tsym=EUR&limit=7")){
@@ -248,7 +249,7 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
             cds.setDecreasingPaintStyle(Paint.Style.FILL);
             cds.setIncreasingColor(Color.rgb(122, 242, 84));
             cds.setIncreasingPaintStyle(Paint.Style.FILL);
-            cds.setValueTextColor(Color.BLACK);
+            cds.setValueTextColor(getResources().getColor(R.color.textColorPrimary));
             CandleData cd = new CandleData(cds);
 
             candleStickChart.setData(cd);
@@ -262,7 +263,8 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
             });
             xAxis.setLabelRotationAngle(-50);
             xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
+            xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
+            candleStickChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
             candleStickChart.getAxisRight().setEnabled(false);
 
             Legend legend = candleStickChart.getLegend();

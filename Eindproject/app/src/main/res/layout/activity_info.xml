@@ -15,7 +15,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
+            android:background="@color/colorPrimary"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme" />
 
@@ -130,7 +130,7 @@
                 android:background="@drawable/toggle_selector"
                 android:buttonTint="@android:color/holo_orange_dark"
                 android:checked="true"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/switchTextColor"
                 android:textOff="1H"
                 android:textOn="1H" />
 
@@ -141,7 +141,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/toggle_selector"
                 android:text="ToggleButton"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/switchTextColor"
                 android:textOff="1D"
                 android:textOn="1D" />
 
@@ -152,7 +152,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/toggle_selector"
                 android:text="ToggleButton"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/switchTextColor"
                 android:textOff="12H"
                 android:textOn="12H" />
 
@@ -163,7 +163,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/toggle_selector"
                 android:text="ToggleButton"
-                android:textColor="@color/colorPrimary"
+                android:textColor="@color/switchTextColor"
                 android:textOff="7D"
                 android:textOn="7D" />
 
