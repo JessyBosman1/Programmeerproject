@@ -141,7 +141,7 @@ public class MainListFragment extends Fragment {
                                 }
                             }
 
-                            //saveOffline(jsonArray);
+                            saveOffline(jsonArray);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -151,11 +151,13 @@ public class MainListFragment extends Fragment {
 
                     private void saveOffline(JSONArray response) {
                         try {
+                            SharedPreferences stored = getActivity().getSharedPreferences("storedPrice", MODE_PRIVATE);
+                            SharedPreferences storedSym = getActivity().getSharedPreferences("storedSymbol", MODE_PRIVATE);
                             for (int i = 0; i < response.length(); i++) {
                                 JSONObject coinObject = response.getJSONObject(i);
 
-                                SharedPreferences stored = getActivity().getSharedPreferences("storedPrice", MODE_PRIVATE);
                                 stored.edit().putString(coinObject.getString("name"), coinObject.getString("price_eur")).apply();
+                                storedSym.edit().putString(coinObject.getString("name"), coinObject.getString("symbol")).apply();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

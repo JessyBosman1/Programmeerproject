@@ -6,7 +6,7 @@
     android:paddingEnd="10dp"
     android:paddingStart="10dp">
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/currencyName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@
         android:hint="Name"
         android:inputType="text" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/currencyAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

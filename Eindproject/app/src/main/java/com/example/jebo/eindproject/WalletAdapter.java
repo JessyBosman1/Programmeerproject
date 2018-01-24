@@ -50,15 +50,16 @@ public class WalletAdapter extends ArrayAdapter<String> {
         TextView txtName = rowView.findViewById(R.id.name);
         TextView txtAmount = rowView.findViewById(R.id.amount);
         TextView txtValue = rowView.findViewById(R.id.value);
-        Button editButton = rowView.findViewById(R.id.editButton);
-        Button removeButton = rowView.findViewById(R.id.removeButton);
+        //Button editButton = rowView.findViewById(R.id.editButton);
+        //Button removeButton = rowView.findViewById(R.id.removeButton);
 
         txtName.setText(walletItems.get(position).toString());
         txtAmount.setText(walletAmounts.get(position).toString());
 
         String price_EUR = stored.getString(walletItems.get(position).toString(), null);
-        Float value = Float.parseFloat(price_EUR) * Float.parseFloat(walletAmounts.get(position).toString());
-        txtValue.setText("€" + value.toString());
+        try{Float value = Float.parseFloat(price_EUR) * Float.parseFloat(walletAmounts.get(position).toString());
+        txtValue.setText("€" + value.toString());}
+        catch(Exception e){txtValue.setText("unknown");}
 
         return rowView;
 

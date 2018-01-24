@@ -187,6 +187,7 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
             xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
             lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
             lineChart.getAxisRight().setEnabled(false);
+            lineChart.setExtraBottomOffset(15);
 
             Legend legend = lineChart.getLegend();
             legend.setEnabled(false);
