@@ -73,7 +73,7 @@ public class WalletFragment extends Fragment implements View.OnClickListener{
     }
 
     private void addItemDialog(){
-         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = this.getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.add_dialog, null);
         dialogBuilder.setView(dialogView);

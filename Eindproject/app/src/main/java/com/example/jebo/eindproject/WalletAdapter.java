@@ -25,19 +25,23 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class WalletAdapter extends ArrayAdapter<String> {
-
     private final Activity context;
     private final ArrayList walletItems;
     private final ArrayList walletAmounts;
+    private final SharedPreferences stored = getContext().getSharedPreferences("storedPrice", MODE_PRIVATE);
+
 
     public WalletAdapter(Activity context, ArrayList walletCoinNames, ArrayList amountWallet) {
         super(context, R.layout.rowlayout_wallet, walletCoinNames);
         this.context = context;
         this.walletItems = walletCoinNames;
         this.walletAmounts = amountWallet;
-    }
+
+        }
 
     public View getView(int position, View view, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
@@ -52,6 +56,9 @@ public class WalletAdapter extends ArrayAdapter<String> {
         txtName.setText(walletItems.get(position).toString());
         txtAmount.setText(walletAmounts.get(position).toString());
 
+        String price_EUR = stored.getString(walletItems.get(position).toString(), null);
+        Float value = Float.parseFloat(price_EUR) * Float.parseFloat(walletAmounts.get(position).toString());
+        txtValue.setText("€" + value.toString());
 
         return rowView;
 

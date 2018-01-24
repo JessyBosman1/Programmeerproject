@@ -29,8 +29,6 @@ public class MainActivity extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     // return to start fragment by replacing current fragment in fragment_containter.
-                    FragmentManager fmList = getSupportFragmentManager();
-
                     Bundle argumentsStandard = new Bundle();
                     argumentsStandard.putString("method", "standard");
 
@@ -43,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
 
                 case R.id.navigation_favorite:
                     // return to start fragment by replacing current fragment in fragment_containter.
-                    FragmentManager fmFav = getSupportFragmentManager();
                     Bundle argumentsFav = new Bundle();
                     argumentsFav.putString("method", "favorite");
 
@@ -55,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
 
                 case R.id.navigation_compare:
-                    FragmentManager fmCompare = getSupportFragmentManager();
                     CompareFragment compare = new CompareFragment();
                     FM.beginTransaction().replace(R.id.fragment_container, compare, "FavFragment").commit();
                     return true;
