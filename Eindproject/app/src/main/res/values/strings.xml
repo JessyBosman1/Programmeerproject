@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Eindproject</string>
+    <string name="app_name">CryptoBee</string>
     <string name="title_home">Home</string>
     <string name="title_favorites">Favorites</string>
     <string name="title_notifications">Notifications</string>

@@ -116,8 +116,14 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        plotSimpleGraph(view, response, urlParam);
-                        plotCandleStick(view, response, urlParam);
+                        Log.d("response", response);
+                        try{
+                        JSONObject newObject = (JSONObject) new JSONTokener(response).nextValue();
+                        JSONArray dataArray = newObject.getJSONArray("Data");
+
+                        plotSimpleGraph(view, dataArray, urlParam);
+                        plotCandleStick(view, dataArray, urlParam);}
+                        catch (JSONException e){Log.d("JSONException", e.toString());}
                     }
 
                 }, new Response.ErrorListener() {
@@ -131,147 +137,145 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
         queue.add(stringRequest);
     }
 
-    private void plotSimpleGraph(View view, String response, String urlParam){
+    private void plotSimpleGraph(View view, JSONArray dataArray, String urlParam){
         try {
             LineChart lineChart = (LineChart) view.findViewById(R.id.graph);
             ArrayList<Entry> entries = new ArrayList<>();
-
-            JSONObject newObject = (JSONObject) new JSONTokener(response).nextValue();
-            JSONArray dataArray = newObject.getJSONArray("Data");
-
             final HashMap<Integer, String> numMap = new HashMap<>();
 
-            for (int i = 0; i < dataArray.length(); i++) {
+            Log.d("response", String.valueOf(dataArray.length()));
+            if (dataArray.length() != 0){
+                for (int i = 0; i < dataArray.length(); i++) {
 
-                long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
+                    long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
 
-                if(urlParam.equals("&tsym=EUR&limit=60")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=12")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=24")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=7")){
-                    String format = new SimpleDateFormat("dd/MM").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-
-                entries.add(new Entry(i, Float.parseFloat(dataArray.getJSONObject(i).getString("high"))));
-
-            }
-
-            LineDataSet dataset = new LineDataSet(entries, "# of Calls");
-            dataset.setColor(Color.rgb(117, 206, 255));
-            dataset.setLineWidth(4);
-            dataset.setDrawValues(false);
-
-            LineData data = new LineData(dataset);
-            lineChart.setData(data);
-
-            XAxis xAxis = lineChart.getXAxis();
-            xAxis.setValueFormatter(new IAxisValueFormatter() {
-                    @Override
-                    public String getFormattedValue(float value, AxisBase axis) {
-                        return numMap.get((int)value);
+                    if(urlParam.equals("&tsym=EUR&limit=60")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
                     }
-            });
+                    else if (urlParam.equals("&tsym=EUR&limit=12")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+                    else if (urlParam.equals("&tsym=EUR&limit=24")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+                    else if (urlParam.equals("&tsym=EUR&limit=7")){
+                        String format = new SimpleDateFormat("dd/MM").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
 
-            xAxis.setLabelRotationAngle(-50);
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
-            lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
-            lineChart.getAxisRight().setEnabled(false);
-            lineChart.setExtraBottomOffset(15);
+                    entries.add(new Entry(i, Float.parseFloat(dataArray.getJSONObject(i).getString("high"))));
 
-            Legend legend = lineChart.getLegend();
-            legend.setEnabled(false);
+                }
 
-            lineChart.animateY(1000);
-            lineChart.invalidate();
 
+                LineDataSet dataset = new LineDataSet(entries, "# of Calls");
+                dataset.setColor(Color.rgb(117, 206, 255));
+                dataset.setLineWidth(4);
+                dataset.setDrawValues(false);
+
+                LineData data = new LineData(dataset);
+                lineChart.setData(data);
+
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setValueFormatter(new IAxisValueFormatter() {
+                        @Override
+                        public String getFormattedValue(float value, AxisBase axis) {
+                            return numMap.get((int)value);
+                        }
+                });
+
+                xAxis.setLabelRotationAngle(-50);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
+                lineChart.getAxisRight().setEnabled(false);
+                lineChart.setExtraBottomOffset(15);
+
+                Legend legend = lineChart.getLegend();
+                legend.setEnabled(false);
+
+                lineChart.animateY(1000);
+                lineChart.invalidate();
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
     }
 
-    private void plotCandleStick(View view, String response, String urlParam){
+    private void plotCandleStick(View view, JSONArray dataArray, String urlParam){
         try {
             CandleStickChart candleStickChart = view.findViewById(R.id.candleStick);
-
-            JSONObject newObject = (JSONObject) new JSONTokener(response).nextValue();
-            JSONArray dataArray = newObject.getJSONArray("Data");
 
             ArrayList<CandleEntry> entries = new ArrayList<>();
             final HashMap<Integer, String> numMap = new HashMap<>();
 
-            for (int i = 0; i < dataArray.length(); i++) {
-                long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
+            if (dataArray.length() != 0){
+                for (int i = 0; i < dataArray.length(); i++) {
+                    long UNIX = Long.parseLong(dataArray.getJSONObject(i).getString("time"))*1000;
 
-                if(urlParam.equals("&tsym=EUR&limit=60")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=12")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=24")){
-                    String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
-                }
-                else if (urlParam.equals("&tsym=EUR&limit=7")){
-                    String format = new SimpleDateFormat("dd/MM").format(new java.util.Date(UNIX));
-                    numMap.put(i,format);
+                    if(urlParam.equals("&tsym=EUR&limit=60")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+                    else if (urlParam.equals("&tsym=EUR&limit=12")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+                    else if (urlParam.equals("&tsym=EUR&limit=24")){
+                        String format = new SimpleDateFormat("HH:mm").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+                    else if (urlParam.equals("&tsym=EUR&limit=7")){
+                        String format = new SimpleDateFormat("dd/MM").format(new java.util.Date(UNIX));
+                        numMap.put(i,format);
+                    }
+
+                    float high = Float.parseFloat(dataArray.getJSONObject(i).getString("high"));
+                    float low = Float.parseFloat(dataArray.getJSONObject(i).getString("low"));
+                    float open = Float.parseFloat(dataArray.getJSONObject(i).getString("open"));
+                    float close = Float.parseFloat(dataArray.getJSONObject(i).getString("close"));
+
+                    entries.add(new CandleEntry(i, high, low, open, close));
+
                 }
 
-                float high = Float.parseFloat(dataArray.getJSONObject(i).getString("high"));
-                float low = Float.parseFloat(dataArray.getJSONObject(i).getString("low"));
-                float open = Float.parseFloat(dataArray.getJSONObject(i).getString("open"));
-                float close = Float.parseFloat(dataArray.getJSONObject(i).getString("close"));
 
-                entries.add(new CandleEntry(i, high, low, open, close));
+                CandleDataSet cds = new CandleDataSet(entries, "Entries");
+                cds.setColor(Color.rgb(80, 80, 80));
+                cds.setShadowColor(Color.DKGRAY);
+                cds.setShadowWidth(0.7f);
+                cds.setDecreasingColor(Color.RED);
+                cds.setDecreasingPaintStyle(Paint.Style.FILL);
+                cds.setIncreasingColor(Color.rgb(122, 242, 84));
+                cds.setIncreasingPaintStyle(Paint.Style.FILL);
+                cds.setValueTextColor(getResources().getColor(R.color.textColorPrimary));
+                CandleData cd = new CandleData(cds);
 
+                candleStickChart.setData(cd);
+
+                XAxis xAxis = candleStickChart.getXAxis();
+                xAxis.setValueFormatter(new IAxisValueFormatter() {
+                    @Override
+                    public String getFormattedValue(float value, AxisBase axis) {
+                        return numMap.get((int)value);
+                    }
+                });
+                xAxis.setLabelRotationAngle(-50);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
+                candleStickChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
+                candleStickChart.getAxisRight().setEnabled(false);
+
+                Legend legend = candleStickChart.getLegend();
+                legend.setEnabled(false);
+
+                candleStickChart.animateY(1000);
+                candleStickChart.invalidate();
             }
-
-            CandleDataSet cds = new CandleDataSet(entries, "Entries");
-            cds.setColor(Color.rgb(80, 80, 80));
-            cds.setShadowColor(Color.DKGRAY);
-            cds.setShadowWidth(0.7f);
-            cds.setDecreasingColor(Color.RED);
-            cds.setDecreasingPaintStyle(Paint.Style.FILL);
-            cds.setIncreasingColor(Color.rgb(122, 242, 84));
-            cds.setIncreasingPaintStyle(Paint.Style.FILL);
-            cds.setValueTextColor(getResources().getColor(R.color.textColorPrimary));
-            CandleData cd = new CandleData(cds);
-
-            candleStickChart.setData(cd);
-
-            XAxis xAxis = candleStickChart.getXAxis();
-            xAxis.setValueFormatter(new IAxisValueFormatter() {
-                @Override
-                public String getFormattedValue(float value, AxisBase axis) {
-                    return numMap.get((int)value);
-                }
-            });
-            xAxis.setLabelRotationAngle(-50);
-            xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-            xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
-            candleStickChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
-            candleStickChart.getAxisRight().setEnabled(false);
-
-            Legend legend = candleStickChart.getLegend();
-            legend.setEnabled(false);
-
-            candleStickChart.animateY(1000);
-            candleStickChart.invalidate();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }

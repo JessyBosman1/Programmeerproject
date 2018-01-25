@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -68,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         final SharedPreferences settings = getSharedPreferences("Settings", MODE_PRIVATE);
-        Boolean nightMode = settings.getBoolean("DayNightMode", false);
+        final Boolean nightMode = settings.getBoolean("DayNightMode", false);
         Log.d("nightMode", nightMode.toString());
 
         if (nightMode) {
@@ -79,24 +80,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Switch DayNightSwitch =  findViewById(R.id.DayNightMode);
-        if (nightMode) {DayNightSwitch.setChecked(true);}
-        else{DayNightSwitch.setChecked(false);}
+        ImageButton buttonDayNight = findViewById(R.id.buttonDayNight);
 
-                DayNightSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                                                      public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                                                          if (isChecked) {
-                                                              settings.edit().putBoolean("DayNightMode", true).apply();
-                                                              resetMainActivity();
-                                                              Log.d("DayNightMode", "true");
-                                                          } else {
-                                                              settings.edit().putBoolean("DayNightMode", false).apply();
-                                                              resetMainActivity();
-                                                              Log.d("DayNightMode", "false");
+        if (nightMode) {buttonDayNight.setImageResource(R.drawable.sun);}
+        else{buttonDayNight.setImageResource(R.drawable.moon);}
 
-                                                          }
-                                                      }
-                                                  });
+        buttonDayNight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!nightMode) {
+                    settings.edit().putBoolean("DayNightMode", true).apply();
+                    resetMainActivity();
+                    Log.d("DayNightMode", "true");
+                } else {
+                    settings.edit().putBoolean("DayNightMode", false).apply();
+                    resetMainActivity();
+                    Log.d("DayNightMode", "false");
+
+                }
+            }
+        });
+
         startListView();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);

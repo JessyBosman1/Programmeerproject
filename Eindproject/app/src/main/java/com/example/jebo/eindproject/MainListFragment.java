@@ -179,6 +179,7 @@ public class MainListFragment extends Fragment {
     public void addObjectToLists(String Name) {
         if (Method.equals("standard")) {
             coinNameList.add(Name);
+
         } else if (Method.equals("favorite")) {
             SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
             Log.d("favPrefs", "enter");
@@ -194,7 +195,7 @@ public class MainListFragment extends Fragment {
         Log.d("test", coinNameList.toString());
         Log.d("test", response.toString());
 
-        JSONArray favoriteCoins = new JSONArray();
+        final JSONArray favoriteCoins = new JSONArray();
         coinListAdapter adapter;
 
         if (Method.equals("favorite")) {
@@ -232,8 +233,16 @@ public class MainListFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 try {
-                    JSONObject coinObject = response.getJSONObject(position);
-                    goToDetailed(coinObject);
+                    if(Method.equals("favorite")){
+                        JSONObject coinObject = favoriteCoins.getJSONObject(position);
+                        goToDetailed(coinObject);
+                    }
+                    else if(Method.equals("standard")){
+                        JSONObject coinObject = response.getJSONObject(position);
+                        goToDetailed(coinObject);
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("JSONException", e.toString());
@@ -245,9 +254,14 @@ public class MainListFragment extends Fragment {
             public boolean onItemLongClick(AdapterView<?> parent, View view,
                                            int position, long id) {
                 try {
-                    JSONObject coinObject = response.getJSONObject(position);
+                    JSONObject coinObject;
+                    if(Method.equals("favorite")){
+                        coinObject = favoriteCoins.getJSONObject(position);
+                    }
+                    else {
+                        coinObject = response.getJSONObject(position);
+                    }
 
-                    Log.d("parent", coinObject.getString("name"));
 
                     ImageView favIcon = view.findViewById(R.id.favIcon);
 
@@ -261,7 +275,7 @@ public class MainListFragment extends Fragment {
                         favIcon.setImageResource(android.R.drawable.btn_star_big_on);
                         updateFavorites(coinObject.getString("name"), true);
                     }
-
+                    getListData("");
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("JSONException", e.toString());
