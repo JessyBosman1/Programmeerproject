@@ -92,3 +92,26 @@ de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft 
 - FadeIn en FadeOut animatie tussen de modes
 - 2 Logo's gemaakt
 - ![VisualSketchImage](/doc/22_1_image1.png?raw=true) ![VisualSketchImage](/doc/22_1_image2.png?raw=true)
+
+#### Dinsdag 23-1-2018
+- Wallet toegevoegd, maakt het mogelijk om in te kunnen vullen hoeveel je van een currency hebt, waarna de waarde wordt berekent.
+- **keuze** Wallet: de coin en hoeveelheden worden lokaal (shared preferences) opgeslagen. Firebase zou er langer over doen om de data op te halen, en het geeft extra datagebruik terwijl het niet echt nodig is. Door het lokaal op te slaan hoeft er niet bij iedere bewerking contact gemaakt te worden met een online service, en is er ook geen internet verbinding nodig voor deze functionaliteit. De waarde van de coin wordt ook offline opgeslagen en dus berekent met de laatste opgehaalde data. Hierdoor is ook zonder internet beschikbaar hoeveel de coin waard was de laatste keer dat het uit de API is opgehaald.
+[VisualSketchImage](/doc/23_1_image1.png?raw=true)
+
+#### Woensdag 24-1-2018
+- Het is nu mogelijk om uit de wallet te kunnen verwijderen en items te kunnen bewerken.
+- Compare functie toegevoegd
+- Meldingen aan compare toegevoegd als er een veld niet is ingevuld.
+- **keuze** In de compare de waardes in de grafiek omgezet van Real values naar percentages. Dit zorgt ervoor dat beide lijnen zichtbaar zijn, omdat de verschillen soms enorm zijn. (bijv bitcoin heeft waardes rond 10.000, terwijl andere waardes hebben rond de 0.001).
+- Invoervelden omgezet naar Autocomplete; als er wordt getypt komen er suggesties, voor gebruiksgemak.
+[VisualSketchImage](/doc/24_1_image1.png?raw=true)
+
+#### Donderdag 25-1-2018
+- Opstart scherm en icoon toegevoegd.
+- **keuze** Day en Nightmode switch omgezet van switch naar afwisselende icoontjes van een zon en maan, dit ziet er mooier uit in het design, omdat er geen tekst gebruikt hoeft te worden om duidelijk te maken wat de knop doet.
+- **BUG FIX** Bij het verwijderen van een favorite vanuit de favorites lijst werd de verkeerde verwijderd, dit kwam door een probleem in de dictionary. Het werkt nu naar behoren.
+- **BUG FIX** De app crashed als er geen data is van de api om de grafiek te vullen. Dit is opgelost met een Try en Except. Als er nu geen data is geeft de grafiek "geen data" weer in plaats van dat er een null reference ontstaat op de lege datapunten.
+[VisualSketchImage](/doc/25_1_image1.png?raw=true)
+
+#### Vrijdag 26-1-2018
+- **Performance** De afbeeldingen van de zon en maan kleiner gemaakt qua pixels, omdat het naar beneden scalen van de HD afbeeldingen zorgde voor een vertraging/lag in de FadeIn en FadeOut, waardoor deze niet meer soepel verliepen.
