@@ -116,17 +116,27 @@ de gebruiker kan nu zelf wisselen tussen de simpel en advanced graph. Dit geeft 
 #### Vrijdag 26-1-2018
 - **Performance** De afbeeldingen van de zon en maan kleiner gemaakt qua pixels, omdat het naar beneden scalen van de HD afbeeldingen zorgde voor een vertraging/lag in de FadeIn en FadeOut, waardoor deze niet meer soepel verliepen.
 
-#### Weekend 27/28 - 1 -2018
+#### Weekend 27/28 -1-2018
 - Testen app medestudent en vice versa, om zo bugs te vinden die je zelf niet altijd vind.
 - Zoeken naar bugs en verbeterpunten.
+
 De volgende punten komen naar voren en worden deze week verbeterd:
 - Backbutton in Infoscherm werkt niet goed.
 - Navigatie crashed als je snel klikt achter elkaar, disable timer toevoegen
 - Orientatie fixed zetten
 - Logo wordt op geklikt maar heeft geen functie, misschien door laten verwijzen naar home button
 - Titel balk in infoscherm een andere kleur omdat deze niet goed overloopt.
-- ListViews lopen over elkaar heen van fovorites en normaal in bepaalde situaties.
+- ListViews lopen over elkaar heen van favorites en normaal in bepaalde situaties.
 
 Verder:
 - Code netjes maken.
 - Comments toevoegen.
+
+#### 29-1-2018
+Bug fixes van de gevonden problemen (format: ~~_probleem_~~ _oplossing_)
+- ~~Backbutton in Infoscherm werkt niet goed.~~ button weggehaald
+- ~~Navigatie crashed als je snel klikt achter elkaar~~ disable timer toevoegen
+- ~~Crash bij draaien~~ Orientatie fixed zetten op Portrait
+- ~~**Usability** Logo wordt op geklikt maar heeft geen functie~~ door laten verwijzen naar startscherm
+- ~~Titel balk in infoscherm een andere kleur omdat deze niet goed overloopt.~~ Kleur iets lichter gemaakt
+- ListViews lopen over elkaar heen van favorites en normaal in bepaalde situaties.

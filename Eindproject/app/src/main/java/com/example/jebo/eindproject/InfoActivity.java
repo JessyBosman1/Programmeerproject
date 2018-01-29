@@ -192,6 +192,7 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
                 lineChart.getAxisRight().setEnabled(false);
                 lineChart.setExtraBottomOffset(15);
+                lineChart.setDescription(null);
 
                 Legend legend = lineChart.getLegend();
                 legend.setEnabled(false);
@@ -268,7 +269,7 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 xAxis.setTextColor(getResources().getColor(R.color.textColorPrimary));
                 candleStickChart.getAxisLeft().setTextColor(getResources().getColor(R.color.textColorPrimary));
                 candleStickChart.getAxisRight().setEnabled(false);
-
+                candleStickChart.setDescription(null);
                 Legend legend = candleStickChart.getLegend();
                 legend.setEnabled(false);
 

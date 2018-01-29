@@ -16,9 +16,10 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/logoImage"
             android:layout_width="55dp"
             android:layout_height="0dp"
+            android:onClick="resetMainActivity"
             android:padding="5dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
