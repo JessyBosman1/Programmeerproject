@@ -75,7 +75,6 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
                 Toast.makeText(getContext(), "cannot find coin data", Toast.LENGTH_SHORT).show();
             }
         }
-        setToolbar(view);
 
         return view;
     }
@@ -327,20 +326,6 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
             e.printStackTrace();
             Log.d("JSONException",e.toString());
         }
-    }
-
-    private void setToolbar(View view){
-
-        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(android.R.drawable.ic_menu_revert);
-
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ;
-            }
-        });
-
     }
 
     @Override

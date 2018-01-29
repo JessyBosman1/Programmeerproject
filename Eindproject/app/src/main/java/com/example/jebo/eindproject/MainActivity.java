@@ -1,10 +1,14 @@
 package com.example.jebo.eindproject;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +22,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +32,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             FragmentManager FM = getSupportFragmentManager();
+
+
+            final BottomNavigationView navigation = findViewById(R.id.navigation);
+
+            //navigation.setOnNavigationItemSelectedListener(null);
+
+
             switch (item.getItemId()) {
                 case R.id.navigation_home:
                     // return to start fragment by replacing current fragment in fragment_containter.
@@ -63,6 +75,15 @@ public class MainActivity extends AppCompatActivity {
                     return true;
             }
             return false;
+        }
+    };
+
+    private BottomNavigationView.OnNavigationItemReselectedListener onNavigationItemReselectedListener
+            = new BottomNavigationView.OnNavigationItemReselectedListener() {
+
+        @Override
+        public void onNavigationItemReselected(@NonNull MenuItem item) {
+            Toast.makeText(MainActivity.this, "Reselected", Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -104,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
         startListView();
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-
+        navigation.setOnNavigationItemReselectedListener(onNavigationItemReselectedListener);
 
     }
 
