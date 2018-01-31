@@ -1,4 +1,4 @@
-package com.example.jebo.eindproject.helperClasses;
+package com.example.jebo.eindproject;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
