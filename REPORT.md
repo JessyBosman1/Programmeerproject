@@ -15,15 +15,15 @@ Allereerst een overview van welke schermen welke classes gebruiken, om duidelijk
 ![VisualSketchImage](/doc/Class_Overview.png?raw=true)
 
 ### details
-####**SplashScreen.java**
+#### **SplashScreen.java**
 Dit script displayed het opstart scherm van de app en gaat vervolgens door naar de main activity (MainActivity.java)
 
-####**MainActivity.java**
+#### **MainActivity.java**
 Dit is de fragment Container van de app. Dit script behandeld de navigation bottom bar en zorgt ervoor dat de juiste fragmenten worden ingeladen naarmate er wordt geklikt op de navigatiebalk.
 
 Main Activity regelt de navigatie naar de andere fragmenten. Ook regelt MainActivity de overschakeling van de Dark en Light layout modes (day&night modus).
 
-####**MainListFragment.java**
+#### **MainListFragment.java**
 de MainListFragment handeld de verschillende listviews af die cryptocurrencies listen(standaard, favorites en zoeken). Het script neemt een argument (Method), die bepaald welke lijst gegenereerd moet worden. Dit wordt zo gedaan om dubbele code te voorkomen bij het genereren van de lijsten.
 
 de rijen zelf worden vormgegeven door de CoinListAdapter, zie kopje.
@@ -34,37 +34,37 @@ Een longclick slaat het corresponderende item op als favorite, of verwijderd het
 
 De zoekbalk wordt hier ook geinitialiseerd. Deze werkt met een timer; als de user typt en vervolgens 500 milliseconde niet typt wordt de lijst geupdate naar de zoekterm. Het 500 milliseconde interval wordt gebruikt zodat niet bij iedere letter een update plaatsvindt wat het systeem overbelast. Hierdoor onstaat een dynamisch effect zonder dat de listview crashed door het grote aantal interacties.
 
-####**CoinListAdapter.java _(helperclass)_**
+#### **CoinListAdapter.java _(helperclass)_**
 Deze custom list adapter maakt iedere rij van het MainListFragment. Het object wordt meegestuurt en hier uit elkaar gehaald tot verschillende parameters. Het icoontje wordt ingeladen vanuit Coinmarketcap.com 's website. De andere waardes komen uit het Object zelf. De percentages worden gekleurt aan de hand van of het een positieve of negatieve waarde is.
 
 Er wordt gekeken of het item een favorite is vanuit de shared prefs en hier wordt de toggle van de favorite icon bepaald.
 
-####**FragmentSwitcher.java _(helperclass)_**
+#### **FragmentSwitcher.java _(helperclass)_**
 Deze class stuurt het object door vanuit een MainListFragment naar de InfoActivity, waarbij het object wordt doorgestuurt.
 
-####**InfoActivity.java**
+#### **InfoActivity.java**
 InfoActivity managed het scherm dat de uitgebreide informatie en de grafieken weergeeft.
 
 De toggle buttons bepalen welke grafiek wordt gedisplayed. Er is een keuze tussen een advanced en een standaard weergave. Het is ook mogelijk om te wisselen tussen een 1 uur, 12 uur, 1 dag en 1 week weergave.
 
 De percentage teksten worden aangepast qua kleur afhankelijk van of het positief of negatief is.
 
-####**PlotSimpleGraph.java _(helperclass)_**
+#### **PlotSimpleGraph.java _(helperclass)_**
 Hier wordt de standaard graph aangemaakt met behulp van de datapunten. De grafiek wordt weergegeven met behulp van [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart "MPAndroidChart"). De datapunten worden bepaald aan de hand van de keuze in tijdweergave (bijv 12 uurs weergave).
 
 Verder wordt in dit script de opmaak van de grafiek afgesteld.
 
-####**PlotCandleStickGraph.java _(helperclass)_**
+#### **PlotCandleStickGraph.java _(helperclass)_**
 De geavanceerde grafiek, ook wel Candle Stick Graph, wordt hier gemaakt, met behulp van [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart "MPAndroidChart"). De datapunten worden verwerkt in een Array, en de as labels worden gegenerereert aan de hand van de Unix Timestamp(zie UnixConverter.java).
 
-####**UnixConverter.java _(helperclass)_**
+#### **UnixConverter.java _(helperclass)_**
 De unix time is het aantal verstreken seconden vanaf 1 januari 1970. Om dit bruikbaar te maken moet het worden omgezet naar een leesbaar, handig formaat. Dit script rekent dat uit en formateert het. De unix tijd 1517428280 staat bijvoorbeeld voor 01/31/2018 7:51pm. De omgerekende waardes worden gebruikt als x-as labels voor de grafieken.
 
-####**CompareFragment.java**
+#### **CompareFragment.java**
 
-####**WalletFragment.java**
+#### **WalletFragment.java**
 
-####**WalletAdapter.java _(helperclass)_**
+#### **WalletAdapter.java _(helperclass)_**
 
 **Clearly describe challenges that your have met during development. Document all important changes that your have made with regard to your design document (from the PROCESS.md). Here, we can see how much you have learned in the past month.**
 
