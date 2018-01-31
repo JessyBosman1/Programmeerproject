@@ -160,7 +160,7 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
     }
 
     /* select textcolor according to positive or negative value */
-    static Integer colorSelector(String Object) {
+    private static Integer colorSelector(String Object) {
         try {
             if (Float.parseFloat(Object) < 0.0) {
                 return (0xffff4444);
