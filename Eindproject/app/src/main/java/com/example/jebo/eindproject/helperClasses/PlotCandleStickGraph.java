@@ -1,10 +1,11 @@
-package com.example.jebo.eindproject;
+package com.example.jebo.eindproject.helperClasses;
 
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.Log;
 import android.view.View;
 
+import com.example.jebo.eindproject.R;
 import com.github.mikephil.charting.charts.CandleStickChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -27,8 +28,8 @@ import java.util.HashMap;
  */
 
 // helper Class to plot candleStickGraph
-class PlotCandleStickGraph {
-    PlotCandleStickGraph(View view, JSONArray dataArray, String urlParam) {
+public class PlotCandleStickGraph {
+    public PlotCandleStickGraph(View view, JSONArray dataArray, String urlParam) {
         try {
             CandleStickChart candleStickChart = view.findViewById(R.id.candleStick);
             // create empty list to store datapoints

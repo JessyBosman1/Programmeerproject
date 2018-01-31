@@ -1,9 +1,10 @@
-package com.example.jebo.eindproject;
+package com.example.jebo.eindproject.helperClasses;
 
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
 
+import com.example.jebo.eindproject.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
@@ -27,8 +28,8 @@ import java.util.HashMap;
 
 
 // helper Class to plot simpleGraph
-class PlotSimpleGraph {
-    PlotSimpleGraph(View view, JSONArray dataArray, String urlParam) {
+public class PlotSimpleGraph {
+    public PlotSimpleGraph(View view, JSONArray dataArray, String urlParam) {
         try {
             LineChart lineChart = (LineChart) view.findViewById(R.id.graph);
             // create empty list to store datapoints

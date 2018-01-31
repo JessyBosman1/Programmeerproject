@@ -187,7 +187,7 @@ public class MainListFragment extends Fragment {
 
         // create new array to select only favorites if requested
         final JSONArray favoriteCoins = new JSONArray();
-        coinListAdapter adapter;
+        CoinListAdapter adapter;
 
         Log.d("Method", Method);
         // create adapter based on Method
@@ -209,10 +209,10 @@ public class MainListFragment extends Fragment {
                 e.printStackTrace();
             }
             // set adapter with filtered data (only favorites)
-            adapter = new coinListAdapter(getActivity(), favoriteCoins, coinNameList);
+            adapter = new CoinListAdapter(getActivity(), favoriteCoins, coinNameList);
         } else {
             // set adapter with all available data
-            adapter = new coinListAdapter(getActivity(), response, coinNameList);
+            adapter = new CoinListAdapter(getActivity(), response, coinNameList);
         }
         // clear adapter from all data left from previous adapters and filters
         adapter.clear();

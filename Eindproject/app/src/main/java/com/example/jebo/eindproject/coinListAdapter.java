@@ -28,11 +28,11 @@ import static android.content.Context.MODE_PRIVATE;
  * Programmeer Project
  */
 
-public class coinListAdapter extends ArrayAdapter<String> {
+public class CoinListAdapter extends ArrayAdapter<String> {
     private final Activity context;
     private final JSONArray coinObjects;
 
-    coinListAdapter(Activity context, JSONArray coinObjects, ArrayList coinNameList) {
+    CoinListAdapter(Activity context, JSONArray coinObjects, ArrayList coinNameList) {
         super(context, R.layout.rowlayout, coinNameList);
         this.context = context;
         this.coinObjects = coinObjects;
