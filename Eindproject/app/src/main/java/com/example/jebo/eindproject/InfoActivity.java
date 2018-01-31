@@ -139,15 +139,15 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
 
             // change text color according to positive or negative percentage
             change1h.setText(selectedCoin.getString("percent_change_1h") + "% (1h)");
-            change1h.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_1h").toString()));
+            change1h.setTextColor(colorSelector(selectedCoin.get("percent_change_1h").toString()));
 
             // change text color according to positive or negative percentage
             change24h.setText(selectedCoin.getString("percent_change_24h") + "% (1d)");
-            change24h.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_24h").toString()));
+            change24h.setTextColor(colorSelector(selectedCoin.get("percent_change_24h").toString()));
 
             // change text color according to positive or negative percentage
             change7d.setText(selectedCoin.getString("percent_change_7d") + "% (7d)");
-            change7d.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_7d").toString()));
+            change7d.setTextColor(colorSelector(selectedCoin.get("percent_change_7d").toString()));
 
             // load icon with Glide
             Glide.with(this.getContext())
@@ -157,6 +157,21 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
             e.printStackTrace();
             Log.d("JSONException", e.toString());
         }
+    }
+
+    /* select textcolor according to positive or negative value */
+    static Integer colorSelector(String Object) {
+        try {
+            if (Float.parseFloat(Object) < 0.0) {
+                return (0xffff4444);
+            } else {
+                return (0xff669900);
+            }
+        } catch (Exception e) {
+            Log.d("ParseError", e.toString());
+        }
+        return (0xffffffff);
+
     }
 
     @Override
