@@ -80,21 +80,28 @@ public class CoinListAdapter extends ArrayAdapter<String> {
             }
             // set percentage, and change color to green if positive or red if negative
             changetxt.setText(coinObject.get("percent_change_24h").toString() + "%(24h)");
-            try {
-                if (Float.parseFloat(coinObject.get("percent_change_24h").toString()) < 0.0) {
-                    changetxt.setTextColor(0xffff4444);
-                } else {
-                    changetxt.setTextColor(0xff669900);
-                }
-            } catch (Exception e) {
-                Log.d("ParseError", e.toString());
-            }
+            // set textcolor according to positive or negative value
+            changetxt.setTextColor(colorSelector(coinObject.get("percent_change_24h").toString()));
 
         } catch (JSONException e) {
             e.printStackTrace();
             Log.d("JSONException", e.toString());
         }
         return rowView;
+    }
+
+    /* select textcolor according to positive or negative value */
+    static Integer colorSelector(String Object) {
+        try {
+            if (Float.parseFloat(Object) < 0.0) {
+                return (0xffff4444);
+            } else {
+                return (0xff669900);
+            }
+        } catch (Exception e) {
+            Log.d("ParseError", e.toString());
+        }
+        return (0xffffffff);
 
     }
 }

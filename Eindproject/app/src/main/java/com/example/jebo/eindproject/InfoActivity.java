@@ -139,39 +139,15 @@ public class InfoActivity extends Fragment implements View.OnClickListener {
 
             // change text color according to positive or negative percentage
             change1h.setText(selectedCoin.getString("percent_change_1h") + "% (1h)");
-            try {
-                if (Float.parseFloat(selectedCoin.get("percent_change_1h").toString()) < 0.0) {
-                    change1h.setTextColor(0xffff4444);
-                } else {
-                    change1h.setTextColor(0xff669900);
-                }
-            } catch (Exception e) {
-                Log.d("ParseError", e.toString());
-            }
+            change1h.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_1h").toString()));
 
             // change text color according to positive or negative percentage
             change24h.setText(selectedCoin.getString("percent_change_24h") + "% (1d)");
-            try {
-                if (Float.parseFloat(selectedCoin.get("percent_change_24h").toString()) < 0.0) {
-                    change24h.setTextColor(0xffff4444);
-                } else {
-                    change24h.setTextColor(0xff669900);
-                }
-            } catch (Exception e) {
-                Log.d("ParseError", e.toString());
-            }
+            change24h.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_24h").toString()));
 
             // change text color according to positive or negative percentage
             change7d.setText(selectedCoin.getString("percent_change_7d") + "% (7d)");
-            try {
-                if (Float.parseFloat(selectedCoin.get("percent_change_7d").toString()) < 0.0) {
-                    change7d.setTextColor(0xffff4444);
-                } else {
-                    change7d.setTextColor(0xff669900);
-                }
-            } catch (Exception e) {
-                Log.d("ParseError", e.toString());
-            }
+            change7d.setTextColor(CoinListAdapter.colorSelector(selectedCoin.get("percent_change_7d").toString()));
 
             // load icon with Glide
             Glide.with(this.getContext())
