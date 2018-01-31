@@ -91,64 +91,7 @@ public class MainListFragment extends Fragment {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        try {
-                            // make sure coin list is empty (useful if recreating list filtering)
-                            coinNameList.clear();
-                            // create response array and optional array used if filtering
-                            JSONArray jsonArray = new JSONArray(response);
-                            JSONArray filteredArray = new JSONArray();
-
-                            // if something filled-in in searchbar: filter list with input
-                            if (!filterText.equals("")) {
-                                createListView(filteredArray);
-
-                                // only add object if object contains input from search
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject coinObject = jsonArray.getJSONObject(i);
-                                    if (coinObject.getString("name").toLowerCase().contains(filterText.toLowerCase())) {
-                                        addObjectToLists(coinObject.getString("name"));
-                                        filteredArray.put(coinObject);
-                                    }
-                                }
-                            }
-                            // if there is nothing filled-in in the searchbar simply create whole list from api
-                            else {
-                                createListView(jsonArray);
-
-                                for (int i = 0; i < jsonArray.length(); i++) {
-                                    JSONObject coinObject = jsonArray.getJSONObject(i);
-                                    addObjectToLists(coinObject.getString("name"));
-                                }
-                            }
-                            // only initiate searchbar of not created, to avoid duplicate
-                            if (searchBarActive == null) {
-                                searchBarActive = true;
-                                initSearchBar();
-                            }
-                            // save names and prices offline to save data and create autoComplete fields data
-                            saveOffline(jsonArray);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-
-                    /* save names and prices offline to save data and create autoComplete fields data */
-                    private void saveOffline(JSONArray response) {
-                        try {
-                            SharedPreferences stored = getActivity().getSharedPreferences("storedPrice", MODE_PRIVATE);
-                            SharedPreferences storedSym = getActivity().getSharedPreferences("storedSymbol", MODE_PRIVATE);
-
-                            // save as (String name, String price)
-                            for (int i = 0; i < response.length(); i++) {
-                                JSONObject coinObject = response.getJSONObject(i);
-                                stored.edit().putString(coinObject.getString("name"), coinObject.getString("price_eur")).apply();
-                                storedSym.edit().putString(coinObject.getString("name"), coinObject.getString("symbol")).apply();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                        prepareData(response, filterText);
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -158,6 +101,75 @@ public class MainListFragment extends Fragment {
         });
         // Add the request to the RequestQueue.
         queue.add(stringRequest);
+    }
+
+    private void prepareData(String response, final String filterText) {
+        try {
+            // make sure coin list is empty (useful if recreating list filtering)
+            coinNameList.clear();
+            // create response array and optional array used if filtering
+            JSONArray jsonArray = new JSONArray(response);
+
+            // filter results using searchbar input
+            filterData(jsonArray, filterText);
+
+            // save names and prices offline to save data and create autoComplete fields data
+            saveOffline(jsonArray);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void filterData(JSONArray jsonArray, final String filterText) {
+        try {
+            JSONArray filteredArray = new JSONArray();
+            // if something filled-in in searchbar: filter list with input
+            if (!filterText.equals("")) {
+                createListView(filteredArray);
+
+                // only add object if object contains input from search
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject coinObject = jsonArray.getJSONObject(i);
+                    if (coinObject.getString("name").toLowerCase().contains(filterText.toLowerCase())) {
+                        addObjectToLists(coinObject.getString("name"));
+                        filteredArray.put(coinObject);
+                    }
+                }
+            }
+            // if there is nothing filled-in in the searchbar simply create whole list from api
+            else {
+                createListView(jsonArray);
+
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    JSONObject coinObject = jsonArray.getJSONObject(i);
+                    addObjectToLists(coinObject.getString("name"));
+                }
+            }
+            // only initiate searchbar of not created, to avoid duplicate
+            if (searchBarActive == null) {
+                searchBarActive = true;
+                initSearchBar();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /* save names and prices offline to save data and create autoComplete fields data */
+    private void saveOffline(JSONArray response) {
+        try {
+            SharedPreferences stored = getActivity().getSharedPreferences("storedPrice", MODE_PRIVATE);
+            SharedPreferences storedSym = getActivity().getSharedPreferences("storedSymbol", MODE_PRIVATE);
+
+            // save as (String name, String price)
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject coinObject = response.getJSONObject(i);
+                stored.edit().putString(coinObject.getString("name"), coinObject.getString("price_eur")).apply();
+                storedSym.edit().putString(coinObject.getString("name"), coinObject.getString("symbol")).apply();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     /* add object to public list, depending on method (favorite or standard) */
@@ -182,38 +194,10 @@ public class MainListFragment extends Fragment {
 
     /* create list view based on Method and Filter */
     public void createListView(final JSONArray response) {
-        Log.d("test", coinNameList.toString());
-        Log.d("test", response.toString());
-
-        // create new array to select only favorites if requested
-        final JSONArray favoriteCoins = new JSONArray();
-        CoinListAdapter adapter;
-
-        Log.d("Method", Method);
         // create adapter based on Method
-        if (Method.equals("favorite")) {
-            try {
-                // get favorites of user
-                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
-                // add Object only if in shared prefs of user
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject coinObject = response.getJSONObject(i);
-                    Boolean prefExist = favPrefs.getBoolean((coinObject.getString("name")), false);
-                    Log.d("FavoriteName", coinObject.getString("name"));
+        final JSONArray favoriteCoins = selectFavorites(response);
+        CoinListAdapter adapter = getListByMethod(favoriteCoins, response);
 
-                    if (prefExist) {
-                        favoriteCoins.put(coinObject);
-                    }
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            // set adapter with filtered data (only favorites)
-            adapter = new CoinListAdapter(getActivity(), favoriteCoins, coinNameList);
-        } else {
-            // set adapter with all available data
-            adapter = new CoinListAdapter(getActivity(), response, coinNameList);
-        }
         // clear adapter from all data left from previous adapters and filters
         adapter.clear();
 
@@ -225,8 +209,14 @@ public class MainListFragment extends Fragment {
         if (state != null) {
             list.onRestoreInstanceState(state);
         }
-
         // set onClick listener on individual list items
+        setClickListener(favoriteCoins, response);
+        setLongClickListener(favoriteCoins, response);
+
+    }
+
+    private void setClickListener(final JSONArray favoriteCoins, final JSONArray response) {
+        ListView list = view.findViewById(R.id.list);
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -251,7 +241,10 @@ public class MainListFragment extends Fragment {
                 }
             }
         });
+    }
 
+    private void setLongClickListener(final JSONArray favoriteCoins, final JSONArray response) {
+        ListView list = view.findViewById(R.id.list);
         // set onLongClick listener on individual list items
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -293,17 +286,53 @@ public class MainListFragment extends Fragment {
                 return true;
             }
 
-            /* add or remove favorite depending on parameter isFavorite*/
-            private void updateFavorites(String coinName, Boolean isFavorite) {
-                SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
 
-                if (isFavorite) {
-                    favPrefs.edit().putBoolean(coinName, true).apply();
-                } else {
-                    favPrefs.edit().remove(coinName).apply();
+        });
+    }
+
+    /* add or remove favorite depending on parameter isFavorite*/
+    private void updateFavorites(String coinName, Boolean isFavorite) {
+        SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+
+        if (isFavorite) {
+            favPrefs.edit().putBoolean(coinName, true).apply();
+        } else {
+            favPrefs.edit().remove(coinName).apply();
+        }
+    }
+
+    private CoinListAdapter getListByMethod(final JSONArray favoriteCoins, JSONArray response) {
+        // create new array to select only favorites if requested
+        Log.d("Method", Method);
+        // create adapter based on Method
+        if (Method.equals("favorite")) {
+            // set adapter with filtered data (only favorites)
+            return new CoinListAdapter(getActivity(), favoriteCoins, coinNameList);
+        } else {
+            // set adapter with all available data
+            return new CoinListAdapter(getActivity(), response, coinNameList);
+        }
+    }
+
+    private JSONArray selectFavorites(JSONArray response) {
+        final JSONArray favoriteCoins = new JSONArray();
+        try {
+            // get favorites of user
+            SharedPreferences favPrefs = getActivity().getSharedPreferences("Favorites", MODE_PRIVATE);
+            // add Object only if in shared prefs of user
+            for (int i = 0; i < response.length(); i++) {
+                JSONObject coinObject = response.getJSONObject(i);
+                Boolean prefExist = favPrefs.getBoolean((coinObject.getString("name")), false);
+                Log.d("FavoriteName", coinObject.getString("name"));
+
+                if (prefExist) {
+                    favoriteCoins.put(coinObject);
                 }
             }
-        });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return favoriteCoins;
     }
 
     // set listener to searchbar, updating list when searching
@@ -315,11 +344,13 @@ public class MainListFragment extends Fragment {
             Timer timer = new Timer();
 
             @Override
-            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {}
+            public void onTextChanged(CharSequence cs, int arg1, int arg2, int arg3) {
+            }
 
             @Override
             public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
-                                          int arg3) {}
+                                          int arg3) {
+            }
 
             @Override
             public void afterTextChanged(Editable arg0) {
