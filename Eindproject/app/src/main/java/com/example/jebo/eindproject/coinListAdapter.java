@@ -91,7 +91,7 @@ public class CoinListAdapter extends ArrayAdapter<String> {
     }
 
     /* select textcolor according to positive or negative value */
-    private static Integer colorSelector(String Object) {
+    public static Integer colorSelector(String Object) {
         try {
             if (Float.parseFloat(Object) < 0.0) {
                 return (0xffff4444);
