@@ -32,6 +32,12 @@ import java.util.TimerTask;
 
 import static android.content.Context.MODE_PRIVATE;
 
+/**
+ * Created by Jessy Bosman
+ * Minor Programmeren UvA
+ * Programmeer Project
+ */
+
 public class MainListFragment extends Fragment {
     private View view;
     // parcelable used to restore scroll location in list if returning to fragment
@@ -126,7 +132,6 @@ public class MainListFragment extends Fragment {
             // if something filled-in in searchbar: filter list with input
             if (!filterText.equals("")) {
                 createListView(filteredArray);
-
                 // only add object if object contains input from search
                 for (int i = 0; i < jsonArray.length(); i++) {
                     JSONObject coinObject = jsonArray.getJSONObject(i);
@@ -178,7 +183,6 @@ public class MainListFragment extends Fragment {
         // if standard, simply add name
         if (Method.equals("standard")) {
             coinNameList.add(Name);
-
         }
         // if favorite, only add object if it is favorited by the user
         else if (Method.equals("favorite")) {
@@ -212,7 +216,6 @@ public class MainListFragment extends Fragment {
         // set onClick listener on individual list items
         setClickListener(favoriteCoins, response);
         setLongClickListener(favoriteCoins, response);
-
     }
 
     private void setClickListener(final JSONArray favoriteCoins, final JSONArray response) {
@@ -234,7 +237,6 @@ public class MainListFragment extends Fragment {
                         // go to detailed information of clicked item
                         new FragmentSwitcher().switchToDetailed(coinObject, getActivity().getSupportFragmentManager());
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                     Log.d("JSONException", e.toString());
@@ -285,8 +287,6 @@ public class MainListFragment extends Fragment {
                 }
                 return true;
             }
-
-
         });
     }
 

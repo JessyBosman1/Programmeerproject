@@ -13,6 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
+/**
+ * Created by Jessy Bosman
+ * Minor Programmeren UvA
+ * Programmeer Project
+ */
+
 public class MainActivity extends AppCompatActivity {
     // create bottom navigation listener
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

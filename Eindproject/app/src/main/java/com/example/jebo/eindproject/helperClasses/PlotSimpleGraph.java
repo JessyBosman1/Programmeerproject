@@ -26,7 +26,6 @@ import java.util.HashMap;
  * Programmeer Project
  */
 
-
 // helper Class to plot simpleGraph
 public class PlotSimpleGraph {
     public PlotSimpleGraph(View view, JSONArray dataArray, String urlParam) {
@@ -69,8 +68,8 @@ public class PlotSimpleGraph {
                 // set labels and modify Axes
                 xAxis.setLabelRotationAngle(-50);
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setTextColor(R.color.textColorPrimary);
-                lineChart.getAxisLeft().setTextColor(R.color.textColorPrimary);
+                xAxis.setTextColor(Color.rgb(171, 185, 209));
+                lineChart.getAxisLeft().setTextColor(Color.rgb(171, 185, 209));
                 lineChart.getAxisRight().setEnabled(false);
                 lineChart.setExtraBottomOffset(15);
                 lineChart.setDescription(null);

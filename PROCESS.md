@@ -132,6 +132,7 @@ Verder:
 - Code netjes maken.
 - Comments toevoegen.
 
+## week 4
 #### 29-1-2018
 Bug fixes van de gevonden problemen (format: ~~_probleem_~~ _oplossing_)
 - ~~Backbutton in Infoscherm werkt niet goed.~~ button weggehaald
@@ -139,4 +140,16 @@ Bug fixes van de gevonden problemen (format: ~~_probleem_~~ _oplossing_)
 - ~~Crash bij draaien~~ Orientatie fixed zetten op Portrait
 - ~~**Usability** Logo wordt op geklikt maar heeft geen functie~~ door laten verwijzen naar startscherm
 - ~~Titel balk in infoscherm een andere kleur omdat deze niet goed overloopt.~~ Kleur iets lichter gemaakt
-- ListViews lopen over elkaar heen van favorites en normaal in bepaalde situaties.
+- ~~ListViews lopen over elkaar heen van favorites en normaal in bepaalde situaties.~~ onbackpress aangepast.
+
+#### 30-1-2018
+- Code commenten
+- Code verplaatsen voor een betere structuur
+- Helper Classes aanmaken
+
+#### 31-1-2018
+- Afmaken van code opruiming
+- Better Code Hub gebruiken om de lange code om te schrijven
+- REPORT.md schrijven
+- overzicht schermen en bijbehorende files maken
+- ![VisualSketchImage](/doc/Class_Overview.png?raw=true)

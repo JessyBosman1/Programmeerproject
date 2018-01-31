@@ -80,8 +80,8 @@ public class PlotCandleStickGraph {
                 // set labels and modify Axes
                 xAxis.setLabelRotationAngle(-50);
                 xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-                xAxis.setTextColor(R.color.textColorPrimary);
-                candleStickChart.getAxisLeft().setTextColor(R.color.textColorPrimary);
+                xAxis.setTextColor(Color.rgb(171, 185, 209));
+                candleStickChart.getAxisLeft().setTextColor(Color.rgb(171, 185, 209));
                 candleStickChart.getAxisRight().setEnabled(false);
                 candleStickChart.setDescription(null);
 

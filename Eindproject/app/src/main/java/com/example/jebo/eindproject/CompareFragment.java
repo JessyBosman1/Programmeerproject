@@ -40,7 +40,6 @@ import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
 /**
  * Created by Jessy Bosman
  * Minor Programmeren UvA

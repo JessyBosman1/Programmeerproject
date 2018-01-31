@@ -28,6 +28,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 
+/**
+ * Created by Jessy Bosman
+ * Minor Programmeren UvA
+ * Programmeer Project
+ */
+
 public class InfoActivity extends Fragment implements View.OnClickListener {
     private ToggleButton button1H;
     private ToggleButton button12H;
