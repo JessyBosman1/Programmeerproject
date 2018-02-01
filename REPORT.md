@@ -34,7 +34,7 @@ De zoekbalk wordt hier ook geinitialiseerd. Deze werkt met een timer; als de use
 
 
 ### **CoinListAdapter.java _(helperclass)_**
-Deze custom list adapter maakt iedere rij van het MainListFragment. Het object wordt meegestuurt en hier uit elkaar gehaald tot verschillende parameters. Het icoontje wordt ingeladen vanuit Coinmarketcap.com 's website. De andere waardes komen uit het Object zelf. De percentages worden gekleurt aan de hand van of het een positieve of negatieve waarde is.
+Deze custom list adapter maakt iedere rij van het MainListFragment. Het object wordt meegestuurt en hier uit elkaar gehaald tot verschillende parameters. Het icoontje wordt ingeladen vanuit Coinmarketcap.com 's website. De andere waardes komen uit het Object zelf. De percentages worden gekleurd aan de hand van of het een positieve of negatieve waarde is.
 
 Er wordt gekeken of het item een favorite is vanuit de shared prefs en hier wordt de toggle van de favorite icon bepaald.
 
