@@ -55,9 +55,10 @@ https://www.cryptocompare.com/api:
 Hier kunnen datapunten voor verschillende tijdsduren worden uitgehaald.
 
 # external sources
-[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart "MPAndroidChart") - plot grafieken
-[Glide](https://github.com/bumptech/glide "Glide") - laad images in
-[Volley](https://github.com/google/volley "Android Volley") - maakt data requests mogelijk van online sources
+- [MPAndroidChart](https://github.com/PhilJay/MPAndroidChart "MPAndroidChart") - plot grafieken
+- [Glide](https://github.com/bumptech/glide "Glide") - laad images in
+- [Volley](https://github.com/google/volley "Android Volley") - maakt data requests mogelijk van online sources
+
 # BetterCodeHub
 [![BCHcompliance](https://bettercodehub.com/edge/badge/JessyBosman1/Programmeerproject?branch=master)](https://bettercodehub.com/)
 
