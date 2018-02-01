@@ -14,6 +14,7 @@ Cryptocurrencies zijn steeds bekender en er bestaan ondertussen ontelbare soorte
 - Een wallet waarin currencies en hoeveelheden kunnen worden ingevuld om zo de waarde te zien.
 - Een Light en Dark layout, om zo een layout te kiezen die past bij de gebruiker.
 - Alle invoervelden zijn autocomplete, waardoor er sneller het juiste kan worden ingevuld.
+- De state van de lists wordt onthouden; als je back drukt kom je waar je bent gebleven.
 
 # Overzicht
 ![Overview](/doc/Class_Overview.png?raw=true)
