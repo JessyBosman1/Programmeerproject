@@ -1,37 +1,31 @@
-# **PROJECT PROPOSAL**
-##### ***Crypto***
+![Banner](/doc/Banner.png?raw=true)
 ##### **Jessy Bosman** - 11056045
 
 # Problem statement
 Cryptocurrencies zijn steeds bekender en het bestaan ondertussen ontelbare soorten, met een steeds groter wordende doelgroep van mensen die erin geïntresseerd zijn en erin handelen. Het is lastig om de stijgingen en dalingen bij te houden en met elkaar te vergelijken, om te kijken wat de waarde is en of de ze beter wordt of niet. Kortom, het is niet overzichtelijk wat er gebeurd tussen de verschillende currencies.
-# Solution
-Een tracker app die de currencies bijhoudt en het mogelijk maakt ze te vergelijken met elkaar. 
 
-#### main features 
-- een lijst met beschikbare currencies
-- Een zoekmogelijkheid
-- favorites toevoegen
-- geselecteerde favorites kunnen bekijken
-- vergelijken van 2 currencies
-- uitgebreide informatie van een currency bekijken bij click
-- lijst sorteren op een eigenschap, zoals prijs of rank.
-- login
+# Features
+- Een lijst met de top 100 crypto currencies van CoinMarketCap.
+- favorieten kunnen worden bekeken en toegevoegd(__door een currency ingedrukt te houden__).
+- Er kan door de lijst gezocht worden met een dynamische zoekbalk.
+- Elke currency heeft een eigen pagina die gedatailleerde informatie laat zien van de coin.
+    - Hier zijn ook grafieken zichtbaar die in verschillende tijdseenheden in te delen zijn.
+- Het vergelijken van 2 currencies in 1 grafiek.
+- Een wallet waarin currencies en hoeveelheden kunnen worden ingevuld om zo de waarde te zien.
+- Een Light en Dark layout, om zo een layout te kiezen die past bij de gebruiker.
+- Alle invoervelden zijn autocomplete, waardoor er sneller het juiste kan worden ingevuld.
 
-#### optional features
-- bijhouden hoeveel je van een coin zelf hebt en wat de waarde is
-- een calculator die uitrekent hoeveel coins hoeveel dollars waard is
+# Overzicht
+![Overview](/doc/Class_Overview.png?raw=true)
 
-# Prerequisites
-#### data sources
 
+# data sources
 - JSON API
 https://coinmarketcap.com/api/
 De open dataset van coinmarketcap. 
 Hier staat informatie over de verschillende cryptocurrencies, zoals de total supply en hoeveel dollar het momenteel waard is. Ook is de rank van de currency beschikbaar.
 
 **sample data:**
-Alle waardes zijn strings en sommige moeten omgezet worden naar floats.
-
 ```
 [
     {
@@ -53,26 +47,18 @@ Alle waardes zijn strings en sommige moeten omgezet worden naar floats.
 ```
 
 - JSON API
-https://www.cryptocompare.com/api#-api-data-histoday-
-Dagelijkse informatie over de currencies, om een grafiek mee te kunnen maken.
+https://www.cryptocompare.com/api:
+    - https://www.cryptocompare.com/api#-api-data-histominute-
+    - https://www.cryptocompare.com/api#-api-data-histohour-
+    - https://www.cryptocompare.com/api#-api-data-histoday-
 
-#### external sources
-**Google Firebase** - maakt het mogelijk om gebruikers te registreren en in te loggen. Andere gebruikers data kan worden opgeslagen, zoals de favorieten van de gebruiker in dit geval.
+Hier kunnen datapunten voor verschillende tijdsduren worden uitgehaald.
 
-#### similar
-**CryptoCurrency - Bitcoin Altcoin Price**
-https://play.google.com/store/apps/details?id=com.crypter.cryptocurrency
-functionaliteiten
-- houdt de waarde van de currenties bij
-- statistieken weergeven per coin
-- meldingen als een coin stijgt of daalt
-- calculator om te bekijken hoeveel iets waard is
+# external sources
+[MPAndroidChart](https://github.com/PhilJay/MPAndroidChart "MPAndroidChart") - plot grafieken
+[Glide](https://github.com/bumptech/glide "Glide") - laad images in
+[Volley](https://github.com/google/volley "Android Volley") - maakt data requests mogelijk van online sources
+# BetterCodeHub
+[![BCHcompliance](https://bettercodehub.com/edge/badge/JessyBosman1/Programmeerproject?branch=master)](https://bettercodehub.com/)
 
-de meeste functionaliteiten zijn qua functionaliteiten goed zelf te maken. Uitgebreide statistieken zoals grafieken zijn moeilijker mogelijk, omdat de data dan moet worden bijgehouden. Dit is niet onmogelijk, maar kost te veel tijd om in de korte periode zelf te implementeren. De andere functionaliteiten zijn naar mijn mening zelf goed te maken.
-#### hardest part
-- Gebruikers moeten favorieten kunnen opslaan. Dit kan met behulp van Firebase. Wat hier lastig aan is is dat het op verschillende manieren gedaan kan worden. bijvoorbeeld 1 grote lijst per gebruiker, of verschillende entries gekoppelt aan de gebruiker. 
-- Sorteren op verschillende eigenschappen. De lijst moet hergestructureerd worden op een eigenschap. Op zich is dit niet zo moeilijk, maar de functie overzichtelijk houden kan nog lastig zijn. Als er op meerdere eigenschappen tegelijk gesorteerd kan worden geeft dit mogelijk wel een probleem. 
-
-#### Visual Sketch
-een visuele uitwerking (tijdelijke) van hoe de applicatie er ongeveer uit gaat zien.
-![VisualSketchImage](/doc/flow.jpg?raw=true)
+&copy; Jessy Bosman, 2018
