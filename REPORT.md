@@ -86,14 +86,14 @@ De walletAdapter regelt de invulling per row van de lijst in de walletfragment. 
 
 - De grafieken correct laten werken koste even moeite, omdat het een plugin was die we nog niet eerder hadden gebruikt. Nadat de data eenmaal in het goede formaat was ging de rest verder soepel.
 
-- Ligt & Dark/Day & Night mode heeft ook enige moeite met zich meegebracht. Ik vond het leuk om te implementeren voor de usability, omdat het fijner is voor je ogen. Allereerst moest de standaard layout wordt eengepast naar een ander layout type, en moesten er 2 kleurenpalletten worden gemaakt voor de verschillende modus. Tussen de modes wisselen zorgt veelal voor crashes, omdat de wisseling in layout ervoor zorgde dat de listViews de Context niet meer herkende en daarom niet meer konden genereren. Dit is opgelost door de MainActivity zichzelf te laten resetten met de nieuwe layout.
+- Light & Dark/Day & Night mode heeft ook enige moeite met zich meegebracht. Ik vond het leuk om te implementeren voor de usability, omdat het fijner is voor je ogen. Allereerst moest de standaard layout worden aangepast naar een ander layout type, en moesten er 2 kleurenpalletten worden gemaakt voor de verschillende modus. Tussen de modes wisselen zorgt veelal voor crashes, omdat de wisseling in layout ervoor zorgde dat de listViews de Context niet meer herkende en daarom niet meer konden genereren. Dit is opgelost door de MainActivity zichzelf te laten resetten met de nieuwe layout.
 
 - In het compare fragment worden 2 grafieken samen geplot. Dit gaf enige moeite omdat het niet echt de bedoeling is van de grafiek plugin dat je 2 grafieken samen plot. Om dit op te lossen wordt met behulp van een parameter de index gereset en de kleur van de datalijn aangepast.
 
 - Custom Animations: De animaties van de fragments, zoals bijvoorbeeld fade in en fade out zijn zelf geschreven, en dit was even lastig uitzoeken hoe het precies werkt, maar met resultaat.
 
 
-## Changes & Decisions.
+## Changes & Decisions
 de belangrijkste verschillen in het Design en de eindversie zijn als volgt:
 - Het login systeem is weggehaald:
   - De app maakt geen gebruik van persoonlijke data van de gebruiker. Ook zijn sociale interacties met andere gebruikers (nog) niet mogelijk. Daarom zou het niet echt een toevoeging hebben. Ook zou het meer voelen als een plicht dan een voordeel.
