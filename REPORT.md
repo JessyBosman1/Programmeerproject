@@ -10,7 +10,7 @@ De applicatie maakt het mogelijk de verschillende cryptocurrencies naast elkaar 
 
 
 **Clearly describe the technical design: how is the functionality implemented in your code? This should be like your DESIGN.md but updated to reflect the final application. First, give a high level overview, which helps us navigate and understand the total of your code (which components are there?). Second, go into detail, and describe the modules/classes (apps) files/functions (data) and how they relate.**
-### Technical Design
+## Technical Design
 Allereerst een overview van welke schermen welke classes gebruiken, om duidelijk te maken hoe het totaalplaatje met elkaar samenhangt:
 ![VisualSketchImage](/doc/Class_Overview.png?raw=true)
 
@@ -69,11 +69,39 @@ De wallet maakt het mogelijk om zelf bij te houden hoeveel een bepaalde hoeveelh
 **WalletAdapter.java _(helperclass)_**
 De walletAdapter regelt de invulling per row van de lijst in de walletfragment. De objecten worden uit de shared preferences gehaald en ingevuld. De waarde van het aantal van een coin wordt berekent en ingevuld.
 
+## Challenges
 **Clearly describe challenges that your have met during development. Document all important changes that your have made with regard to your design document (from the PROCESS.md). Here, we can see how much you have learned in the past month.**
 
+- De eerste challenge was niet zozeer de data ophalen, maar de data in het goede formaat krijgen. Om dit goed te doen moest het worden omgezet naar een object. Het moeilijkste hieraan was dat de 2 data API's elkaar moesten kunnen aanvullen met data, maar natuurlijk niet dezelfde soort structuur gebruiken. Om dit op te lossen gebruik ik de Symbol parameter uit de eerste data om een query te sturen naar de 2e dataset en zo alleen dat object terug te krijgen. Dit voorkomt teveel data ophalen en geeft altijd alleen het juiste object terug.
 
+- De custom listview goed werkend krijgen werkte in het begin niet helemaal vloeiend, omdat nadat de data was ingeladen er lege velden achteraan werden gegenereert. Dit is opgelost door de data eerst in zn geheel op te halen voordat de list adapter aan het werk gaat.
 
+- De zoekbalk heeft ook veel moeite gekost om correct te laten werken. Eerst gaf deze steeds "bitcoin" terug, ongeacht de input. Toen dit eenmaal werkte ontstond het probleem dat de app crashete als er te snel werd getypt, omdat de listview de veranderingen niet kon bijhouden (het doel was om een dynamische listview te maken die update terwijl je typt). Dit is opgelost door een timer die wacht totdat de gebruiker een halve seconde niet typt voordat de lijst wordt geupdate. Zo verloopt het vloeiend en wordt de listview niet overload.
+
+- De grafieken correct laten werken koste even moeite, omdat het een plugin was die we nog niet eerder hadden gebruikt. Nadat de data eenmaal in het goede formaat was ging de rest verder soepel.
+
+- Ligt & Dark/Day & Night mode heeft ook enige moeite met zich meegebracht. Ik vond het leuk om te implementeren voor de usability, omdat het fijner is voor je ogen. Allereerst moest de standaard layout wordt eengepast naar een ander layout type, en moesten er 2 kleurenpalletten worden gemaakt voor de verschillende modus. Tussen de modes wisselen zorgt veelal voor crashes, omdat de wisseling in layout ervoor zorgde dat de listViews de Context niet meer herkende en daarom niet meer konden genereren. Dit is opgelost door de MainActivity zichzelf te laten resetten met de nieuwe layout.
+
+- In het compare fragment worden 2 grafieken samen geplot. Dit gaf enige moeite omdat het niet echt de bedoeling is van de grafiek plugin dat je 2 grafieken samen plot. Om dit op te lossen wordt met behulp van een parameter de index gereset en de kleur van de datalijn aangepast.
+
+- Custom Animations: De animaties van de fragments, zoals bijvoorbeeld fade in en fade out zijn zelf geschreven, en dit was even lastig uitzoeken hoe het precies werkt, maar met resultaat.
+
+## Changes & Decisions.
 **Defend your decisions by writing an argument of a most a single paragraph. Why was it good to do it different than you thought before? Are there trade-offs for your current solution? In an ideal world, given much more time, would you choose another solution?**
+de belangrijkste verschillen in het Design en de eindversie zijn als volgt:
+- Het login systeem is weggehaald:
+  - De app maakt geen gebruik van persoonlijke data van de gebruiker. Ook zijn sociale interacties met andere gebruikers (nog) niet mogelijk. Daarom zou het niet echt een toevoeging hebben. Ook zou het meer voelen als een plicht dan een voordeel.
+  - In plaats hiervan wordt de kleine hoeveelheid benodigde info opgeslagen in de shared preferences.
+  - _Ideaal_: gebruikers wel erin houden en daadwerkelijk functionaliteiten geven.
 
+- De grafieken zijn uitgebreider dan in het design.
+  - Voor een cryptocurrency app waarbij de kleine veranderingen een grote rol spelen is het belangrijk dat dit goed gevolgd kan worden. Een grafiek waarin amper informatie te zien is is hierdoor compleet niet nuttig. Daarom zijn er nu 2 grafieken geimplementeerd; één voor een snelle weergave en één zeer gedetailleerde voor de gebruikers die dit prefereren.
+  - _Ideaal_: nog meer opties voor de grafieken, bijvoorbeeld dat je preciese data kan geven die worden gedisplayed.
 
-**Make sure the document is complete and reflects the final state of the application. The document will be an important part of your grade.**
+  - Light en Dark layout toegevoegd, zodat de user de layout kan kiezen die hij/zij fijner vindt. De voordelen van een dark layout zijn:
+    - Fijner lezen 's avonds
+    - Minder energie verbruik
+    - Is minder vermoeiend voor de ogen
+
+  - De Wallet stond in de optionele items, maar is geïmplementeerd.
+    - _Ideaal_: De wallet is nu offline, een optie om bijvoorbeeld online interactie met andere gebruikers toe te staan of bijvoorbeeld statistieken bij te houden zou interessant zijn.
