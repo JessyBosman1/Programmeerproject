@@ -111,3 +111,5 @@ de belangrijkste verschillen in het Design en de eindversie zijn als volgt:
 
  - De Wallet stond in de optionele items, maar is geïmplementeerd.
    - _Ideaal_: De wallet is nu offline, een optie om bijvoorbeeld online interactie met andere gebruikers toe te staan of bijvoorbeeld statistieken bij te houden zou interessant zijn.
+
+&copy; Jessy Bosman, 2018
