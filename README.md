@@ -60,6 +60,9 @@ Hier kunnen datapunten voor verschillende tijdsduren worden uitgehaald.
 - [Glide](https://github.com/bumptech/glide "Glide") - laad images in
 - [Volley](https://github.com/google/volley "Android Volley") - maakt data requests mogelijk van online sources
 
+# [video](https://youtu.be/5KZRXJDmaZs "Demo Video")
+
+
 # BetterCodeHub
 [![BCHcompliance](https://bettercodehub.com/edge/badge/JessyBosman1/Programmeerproject?branch=master)](https://bettercodehub.com/)
 
