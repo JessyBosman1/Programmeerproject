@@ -4,7 +4,7 @@
 
 De applicatie maakt het mogelijk de verschillende cryptocurrencies naast elkaar te houden. De waardes van verschillende currencies kunnen in verschillende tijdsperiodes worden geplot in een grafiek. Ook is het mogelijk de grafieken samen te plotten met een percentage weergave om zo 2 currencies te vergelijken. De applicatie heeft ook de mogelijkheid om zelf een wallet bij te houden die de waarde geeft van de currencies die de gebruiker heeft ingevoerd.
 
-![VisualSketchImage](/doc/23_1_image1.png?raw=true)
+![VisualSketchImage](/doc/1_2_image1.png?raw=true)
 
 ## Technical Design
 Allereerst een overview van welke schermen welke classes gebruiken, om duidelijk te maken hoe het totaalplaatje met elkaar samenhangt:
