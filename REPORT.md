@@ -98,10 +98,10 @@ de belangrijkste verschillen in het Design en de eindversie zijn als volgt:
   - Voor een cryptocurrency app waarbij de kleine veranderingen een grote rol spelen is het belangrijk dat dit goed gevolgd kan worden. Een grafiek waarin amper informatie te zien is is hierdoor compleet niet nuttig. Daarom zijn er nu 2 grafieken geimplementeerd; één voor een snelle weergave en één zeer gedetailleerde voor de gebruikers die dit prefereren.
   - _Ideaal_: nog meer opties voor de grafieken, bijvoorbeeld dat je preciese data kan geven die worden gedisplayed.
 
-  - Light en Dark layout toegevoegd, zodat de user de layout kan kiezen die hij/zij fijner vindt. De voordelen van een dark layout zijn:
-    - Fijner lezen 's avonds
-    - Minder energie verbruik
-    - Is minder vermoeiend voor de ogen
+ - Light en Dark layout toegevoegd, zodat de user de layout kan kiezen die hij/zij fijner vindt. De voordelen van een dark layout zijn:
+   - Fijner lezen 's avonds
+   - Minder energie verbruik
+   - Is minder vermoeiend voor de ogen
 
-  - De Wallet stond in de optionele items, maar is geïmplementeerd.
-    - _Ideaal_: De wallet is nu offline, een optie om bijvoorbeeld online interactie met andere gebruikers toe te staan of bijvoorbeeld statistieken bij te houden zou interessant zijn.
+ - De Wallet stond in de optionele items, maar is geïmplementeerd.
+   - _Ideaal_: De wallet is nu offline, een optie om bijvoorbeeld online interactie met andere gebruikers toe te staan of bijvoorbeeld statistieken bij te houden zou interessant zijn.
