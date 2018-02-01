@@ -2,7 +2,7 @@
 ##### **Jessy Bosman** - 11056045
 
 # Problem statement
-Cryptocurrencies zijn steeds bekender en het bestaan ondertussen ontelbare soorten, met een steeds groter wordende doelgroep van mensen die erin geïntresseerd zijn en erin handelen. Het is lastig om de stijgingen en dalingen bij te houden en met elkaar te vergelijken, om te kijken wat de waarde is en of de ze beter wordt of niet. Kortom, het is niet overzichtelijk wat er gebeurd tussen de verschillende currencies.
+Cryptocurrencies zijn steeds bekender en er bestaan ondertussen ontelbare soorten, met een steeds groter wordende doelgroep van mensen die erin geïntresseerd zijn en erin handelen. Het is lastig om de stijgingen en dalingen bij te houden en met elkaar te vergelijken, om te kijken wat de waarde is en of de ze beter wordt of niet. Kortom, het is niet overzichtelijk wat er gebeurd tussen de verschillende currencies.
 
 # Features
 - Een lijst met de top 100 crypto currencies van CoinMarketCap.
